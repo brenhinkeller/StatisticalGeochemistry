@@ -1,0 +1,7 @@
+Sources of Chondrite Values:
+Anders and Grevesse (1989)
+McDonough and Sun (1995)
+McDonough (2000)
+Sun and McDonough (1989)
+Palme (1988)
+Wasson and Kallemeyn (1988)

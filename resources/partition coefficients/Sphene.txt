@@ -1,0 +1,61 @@
+EarthRef.org -- GERM Partition Coefficient (Kd) Database
+Database development and maintenance by the PACER Team -- Data contribution by Roger Nielsen
+
+DATA:
+Rock Type	Mineral	Z	Elem	Value	SD	Low	High	Kd Type	Reference	Definition	Notes	Inserted
+Andesite	Sphene	41	Nb			5.3	7.6	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Andesite	Sphene	73	Ta			15.4	19.6	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Basalt	Sphene	57	La			2.1	8.6	Experimental	Green & Pearson 1983	Solid-Melt		12-DEC-2000
+Basalt	Sphene	62	Sm			11	63	Experimental	Green & Pearson 1983	Solid-Melt		12-DEC-2000
+Basalt	Sphene	63	Eu			.06	.21	Experimental	Green & Pearson 1983	Solid-Melt		12-DEC-2000
+Basalt	Sphene	67	Ho			11	41	Experimental	Green & Pearson 1983	Solid-Melt		12-DEC-2000
+Basalt	Sphene	71	Lu			6	12	Experimental	Green & Pearson 1983	Solid-Melt		12-DEC-2000
+Basalt-Andesite	Sphene	41	Nb			3.5	5.7	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Basalt-Andesite	Sphene	73	Ta			10.8	18.9	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Trachyte	Sphene	41	Nb			5.4	7.6	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Trachyte	Sphene	73	Ta			14	18.3	Experimental	Green & Pearson 1987	Solid-Melt		12-DEC-2000
+Andesite	Sphene	21	Sc	10				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	24	Cr				21	Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	27	Co				4.2	Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	30	Zn	3.9				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	56	Ba				.6	Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	57	La	46				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	58	Ce	87				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	60	Nd	152				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	62	Sm	204				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	63	Eu	181				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	65	Tb	248				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	66	Dy	206				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	70	Yb	104				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	71	Lu	92				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	72	Hf	10.1				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	73	Ta	142				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	74	W	16				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	90	Th	17.1				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+Andesite	Sphene	92	U	9.9				Phenocryst-Matrix	Luhr & Carmichael 1980	Solid-Melt		12-DEC-2000
+
+LINKS TO REFERENCES:
+Green & Pearson 1983 - http://earthref.org/cgi-bin/err.cgi?n=91
+Green & Pearson 1987 - http://earthref.org/cgi-bin/err.cgi?n=94
+Luhr & Carmichael 1980 - http://earthref.org/cgi-bin/err.cgi?n=181
+
+ACKNOWLEDGEMENTS:
+Sponsored by NSF -- EAR 0000998
+Supported by the San Diego SuperComputer Center
+
+DATABASE STATISTICS:
+EarthRef.org Database Version: 
+Search Time: 30 January 2013 05:48:28 PM
+
+LINKS TO EARTHREF.ORG:
+Original search form - http://earthref.org/cgi-bin/kdd-s0-main.cgi
+Search results - http://earthref.org/cgi-bin/kdd-s1-advanced.cgi?database_name=kdd&search_start=main&term=&term=sphene&term=&term_type=rock_type&term_type=mineral&term_type=element&conjunction=AND&conjunction=AND&rock_type=Any%20Rock%20Type&mineral=Any%20Mineral&element_family=Any%20Element%20Family&er_citation_id=Any%20Reference&sort=short_authors&
+
+SEARCH VALUES:
+Search Term(s):  sphene (Mineral)
+Rock Type: Any Rock Type
+Mineral: Any Mineral
+Element Family: Any Element Family
+Reference: Green & Pearson 1987
+Sort by: Reference
+

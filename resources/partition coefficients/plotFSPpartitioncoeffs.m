@@ -1,0 +1,6 @@
+figure; plot(p.SiO2,10.^p.Albite.Sr,'b')
+hold on; plot(p.SiO2,10.^p.Anorthite.Sr,'r')
+hold on; plot(p.SiO2,10.^p.Orthoclase.Sr,'g')
+xlabel('SiO2')
+ylabel('Sr Partition Coefficient')
+legend('Albite','Anorthite','Orthoclase')

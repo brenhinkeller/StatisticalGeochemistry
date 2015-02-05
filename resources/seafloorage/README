@@ -1,0 +1,273 @@
+ftp://ftp.es.usyd.edu.au/pub/agegrid/2008/Grids/README
+12 September, 2008
+
+Age, spreading rates and spreading asymmetry of the world's ocean crust
+
+Reference
+
+Muller, R. D., M. Sdrolias, C. Gaina, and W. R. Roest (2008), Age, spreading rates, and spreading asymmetry of the world's 
+ocean crust, Geochem. Geophys. Geosyst., 9, Q04006, doi:10.1029/2007GC001743. 
+
+### Version 3 ###
+
+age.3.2.img			A 10800 by 8640 grid of 2-byte integers = 186,624,000 bytes.
+					Byte order is big_endian.
+				 	Stored in an integer*2 format without any 
+					header or record information.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					Grid cells without data (i.e. on continental crust)
+					are assigned values of 32767.
+					The Mercator projected image spans longitudes from 0 E to
+					360 E and latitudes from 80.738 N to -80.738 N.
+					A spherical earth is used for the Mercator projection.
+					2 minute resolution, pixel-registered.
+                 
+age.3.2.nc			A short integer netCDF formatted file.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					2 minute resolution, gridline-registered.
+                 
+age.3.6.nc		A short integer netCDF formatted file.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					6 minute resolution, gridline-registered.
+                 
+age.3.6.xyz		A simple ASCII file (long, lat, age).
+					The age units are in millions of years with no scaling.
+					The file spans longitudes from 0 E to
+                    360 E and latitudes from 90 N to -90 N.
+                    6 minute resolution, gridline-registered.
+               
+ageerror.3.2.img	A 10800 by 8640 grid of 2-byte integers = 186,624,000 bytes.
+					Byte order is big_endian.
+					Stored in an integer*2 format without any 
+					header or record information.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					Grid cells without data (i.e. on continental crust)
+					are assigned values of 32767.
+					The Mercator projected image spans longitudes from 0 E to
+					360 E and latitudes from 80.738 N to -80.738 N.
+					A spherical earth is used for the Mercator projection.
+					2 minute resolution, pixel-registered.
+  
+ageerror.3.2.nc		A short integer netCDF formatted file.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					2 minute resolution, gridline-registered.
+
+ageerror.3.6.nc		A short integer netCDF formatted file.
+					The age units are in millions of years, 
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					6 minute resolution, gridline-registered.
+
+ageerror.3.6.xyz	A simple ASCII file (long, lat, ageerror).
+					The age units are in millions of years with no scaling.
+					The file spans longitudes from 0 E to
+                    360 E and latitudes from 90 N to -90 N.
+                    6 minute resolution, gridline-registered.
+               
+rate.3.2.img		A 10800 by 8640 grid of 2-byte integers = 186,624,000 bytes.
+					Byte order is big_endian.
+					Stored in an integer*2 format without any 
+					header or record information.
+					The spreading rate units are in mm/yr,
+					multiplied by 100 (to enable storage as short integers)
+					Grid cells without data (i.e. on continental crust)
+					are assigned values of 32767.
+					The Mercator projected image spans longitudes from 0 E to
+					360 E and latitudes from 80.738 N to -80.738 N.
+					A spherical earth is used for the Mercator projection.
+					2 minute resolution, pixel-registered.
+
+rate.3.2.nc			A short integer netCDF formatted file.
+					The spreading rate units are in mm/yr,
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					2 minute resolution, gridline-registered.
+
+rate.3.6.nc			A short integer netCDF formatted file.
+					The spreading rate units are in mm/yr,
+					multiplied by 100 (to enable storage as short integers)
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					6 minute resolution, gridline-registered.
+                 
+rate.3.6.xyz		A simple ASCII file (long, lat, rate).
+					The spreading rate units are in mm/yr with no scaling.
+					The file spans longitudes from 0 E to
+                    360 E and latitudes from 90 N to -90 N.
+                    6 minute resolution, gridline-registered.
+               
+asym.3.2.img		A 10800 by 8640 grid of 2-byte integers = 186,624,000 bytes.
+					Byte order is big_endian.
+					Stored in an integer*2 format without any 
+					header or record information.
+					The spreading asymmetry units are expressed as
+					percentage of crustal accretion, i.e. symmetric spreading
+					results in values of 50% on conjugate ridge flanks,
+					multiplied by 100 (to enable storage as short integers)
+					Grid cells without data (i.e. on continental crust)
+					are assigned values of 32767.
+					The Mercator projected image spans longitudes from 0 E to
+					360 E and latitudes from 80.738 N to -80.738 N.
+					A spherical earth is used for the Mercator projection.
+					2 minute resolution, pixel-registered.
+
+asym.3.2.nc			Spreading asymmetry grid.
+					A short integer netCDF formatted file.
+					The spreading asymmetry units are in percent times 100.
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					2 minute resolution, gridline-registered.
+
+asym.3.6.nc			Spreading asymmetry grid.
+					A short integer netCDF formatted file.
+					Byte order is big_endian.
+					The spreading asymmetry units are in percent times 100.
+					The geographic grid spans longitudes from 0 E to
+					360 E and latitudes from 90 N to -90 N.
+					6 minute resolution, gridline-registered.
+
+asym.3.6.xyz		A simple ASCII file (long, lat, asymmetry).
+					The spreading asymmetry units are in percent with no scaling.
+					The file spans longitudes from 0 E to
+                    360 E and latitudes from 90 N to -90 N.
+                    6 minute resolution, gridline-registered.
+
+res_basement_GDH1.1.5.nc: Residual oceanic basement depth based on
+               Stein and Stein's (1992) GDH-1 plate model age-depth relationship.
+               Units are in meters.
+               The geographic grid spans longitudes from 0 E to
+               360 E and latitudes from 90 N to -90 N.
+               5 minute resolution, gridline-registered.
+
+res_basement_PM_Crosby07_1.5.nc: Residual oceanic basement depth based
+               on the modified plate model age-depth relationship
+               from Crosby's PhD Thesis (Cambridge, 2007).
+               Units are in meters.
+               The geographic grid spans longitudes from 0 E to
+               360 E and latitudes from 90 N to -90 N.
+               5 minute resolution, gridline-registered.
+
+res_basement_TBL_Crosby_1.5.nc: Residual oceanic basement depth
+               based on the North Pacific thermal boundary layer
+               model age-depth relationship from Crosby et al. (2006)
+               Units are in meters.
+               The geographic grid spans longitudes from 0 E to
+               360 E and latitudes from 90 N to -90 N.
+               5 minute resolution, gridline-registered.
+
+res_basement_PM_PS77_1.5.nc: Residual oceanic basement depth based on the
+               Parsons and Sclater (1977) plate model. This model
+               is not shown in our G-cubed paper, but included here
+               for completeness.  In our view it is still a useful
+               reference model.
+               Units are in meters.
+               The geographic grid spans longitudes from 0 E to
+               360 E and latitudes from 90 N to -90 N.
+               5 minute resolution, gridline-registered.   
+
+The directory also contains 4 GMT colour palette files (.cpt): age.cpt,
+ageerror.cpt, rate.cpt and asym.cpt.
+
+All grid file names follow the convention to use two numbers to indicate
+					the file version number followed by the resolution in
+					minutes. Therefore age_3.2.img corresponds to version 3
+					with 2 minute resolution.
+					
+About .img files:	The Mercator projected .img files can be accessed with
+					Wessel and Smith's Generic Mapping Tools (GMT) program
+					img2mercgrd:
+					 
+					 img2mercgrd age3.2.img -R<west>/<east>/<south>/<north> -Gage3.2_myregion.grd -T1 -S0.01 -D-80.738/80.738
+					
+					The exact usage of img2mercgrd may depend on the GMT
+					version you use.  
+
+					Note that any inverse projection of the Mercator grid is
+					unnecessary, as we provide a geographic age grid:
+					age.3.2.nc
+
+					The .img files have big_endian byte format (reflecting
+					e.g. old Macs with Motorala CPU's and Sun SPARC computers).
+					GMT's img2grd and img2mercgrd expects the files to be in
+					the big-endian format (as we supply) and will automatically 
+					apply a byte swap when used on little-endian hardware 
+					(e.g. based on Intel or AMD chips).  If you use a program
+					to read these files that require little-endian data input 
+					use dd (on unix machines) to byte swap the img files: 
+					dd if=orig.img of=new.img conv=swab.
+
+					The .img files are pixel-registered (i.e. nodes centered on the grid boxes).  
+					This differs from gridline-registered grids where nodes are at gridline intersections.
+					Gridline-registered grids therefore have 1 row/column more than pixel-registrated grids.
+	
+About .nc files:	These are netCDF files adhering to the COORDS
+					convention and may be used with any programs that supports 
+					such files, such as the GMT programs (eg grdreformat for 
+					converting the file to another format if desired, 
+					grdmath for division of the grids by 10 (for age, rate,
+					asym and age error grids) and grdimage for plotting.  
+					GMT format file code is ns (short integer netCDF format). 
+					
+					The 6 minute age, rate and asymmetry grids are provided for 
+					users who do not need high-resolution grids.  This
+					resolution corresponds to that of our previous age grid
+					(from 1997).
+
+					Convert short integer .nc files to default GMT grd files
+					as follows (for example). 
+					
+					grdmath age.3.6.nc=ns 0.01 MUL = age.3.6.grd=nf -V
+
+					This example only works for GMT4.1 or above.  For older 
+					versions of GMT, you may have to run grdreformat and
+					grdmath separately.
+
+					If you just want to convert  a .nc file to xyz, run, for example
+					grd2xyz age.3.2.nc=ns/0.01/0 > age.3.2.xyz
+
+					The .nc files are gridline-registered (i.e. nodes are at gridline intersections).  
+					This differs from pixel-registered grids where nodes are centered on the grid boxes.
+					Gridline-registered grids therefore have 1 row/column more than pixel-registrated grids.
+
+All files are compressed with bzip2. Use bunzip2 for unzipping of the
+files.  
+
+Known Bugs:			Gridding artifacts exist around microplates (e.g.
+					Bauer microplate), along fracture zones (e.g. Central Atlantic) and in
+					areas with highly oblique spreading (e.g. South-West Indian Ridge).
+					Minor interpolation artifacts along the margins of some back-arc basins.
+
+Fixes:			02-04-09: Fixed interpolation error in the rate grid
+along the prime meridin
+					11-11-09: Values in age.3.6.xyz that were 9.9920072e-15
+					were changed to 0.0
+					11-09-08: Spreading asymmetry for crust without a present
+					day conjugate is included in this version of the grid due to several
+					requests received by the authors.	
+					11-09-08: Adjustment to the location of chron M25 in the westernmost Pacific (Pacific-Izanagi) and to the age assigned to the Pacific triangle
+					11-09-08: Minor COB modifications around back-arc basins to minimise over-interpolation artifacts from the adjacent subducting ocean floor
+					04-04-08: Gridding artifact in the Bay of Bengal,
+					eastern India and in the southern Indian Ocean, east of
+					the Enderby Basin was fixed.
+					04-04-08: Inclusion of the Komandorsky Basin and Bering
+					Sea, North Pacific
+
+Contribute:			If you would like your work to be included in the next
+					version of the agegrid, please send us an email.
+
+Any questions, please email:
+					Dietmar Muller d.muller@usyd.edu.au
+					Maria Seton maria.seton@usyd.edu.au
