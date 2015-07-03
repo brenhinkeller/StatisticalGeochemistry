@@ -1,6 +1,7 @@
 function getCN1point1(in)
 
-cd /Users/brenhinkeller/Documents/MATLAB/resources/crust1
+[crustpath,~,~] = fileparts(which('getcrust1data.command'));
+cd(crustpath)
 
 test=~isnan(in.Latitude)&~isnan(in.Longitude);
 lat=in.Latitude(test);lon=in.Longitude(test);
@@ -12,7 +13,7 @@ end
 fprintf(fid,'q\n');
 fclose(fid);
 
-
+printf('Now navigate to %s in the terminal and run getcrust1data.command before running getCN1point2.m')
 
 % cat coordinates | ./getCN1point > layers.out'
 

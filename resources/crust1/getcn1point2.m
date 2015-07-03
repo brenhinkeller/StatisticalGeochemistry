@@ -1,7 +1,7 @@
 function [in]=getCN1point2(in)
 
-cd /Users/brenhinkeller/Documents/MATLAB/resources/crust1
-
+[crustpath,~,~] = fileparts(which('getcrust1data.command'));
+cd(crustpath)
 
 % Input files
 load topography.out
