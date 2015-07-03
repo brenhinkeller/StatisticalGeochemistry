@@ -3,15 +3,18 @@
 
 
 % Pick a silica range
-SiO2=70;
+SiO2=65;
 % minerals=p.minerals;
-minerals={'Garnet','Amphibole','Clinopyroxene','Orthopyroxene','Olivine','Anorthite','Orthoclase','Albite'};
-minerals={'Monazite','Allanite','Xenotime','Zircon','Apatite','Sphene'};
+minerals={'Garnet','Amphibole','Clinopyroxene','Orthopyroxene','Olivine','Anorthite','Orthoclase','Albite'}; % Major
+% minerals={'Monazite','Allanite','Xenotime','Zircon','Apatite','Sphene'}; % Accessory
+% minerals={'Allanite','Zircon','Apatite','Sphene','Orthoclase','Anorthite','Clinopyroxene','Amphibole'};
 
 minerals=minerals(logical(cellfun(@(x) sum(ismember(p.minerals, x)), minerals)));
 
 
-elem={'La','Ce','Pr','Nd','Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Hf','Y','Sc','Th','U'};
+% elem={'La','Ce','Pr','Nd','Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Hf','Y','Sc','Th','U'};
+elem={'La','Ce','Pr','Nd','Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu'};
+
 
 figure;
 c=lines(length(minerals));

@@ -47,7 +47,11 @@ p.minerals=minerals;
 for i=1:length(pdata.minerals)
     for j=1:length(pdata.(pdata.minerals{i}).elements)/2
         p.(minerals{i}).elements=elements;
-        p.(minerals{i}).(elements{j})=monteCarloFit(pdata.SiO2, pdata.SiO2_Err, pdata.(minerals{i}).(elements{j}), pdata.(minerals{i}).([elements{j} '_Err']), 40,80,41,5);
+        if range(pdata.SiO2(~isnan(pdata.(minerals{i}).(elements{j})))) > 5
+            p.(minerals{i}).(elements{j})=monteCarloFit(pdata.SiO2, pdata.SiO2_Err, pdata.(minerals{i}).(elements{j}), pdata.(minerals{i}).([elements{j} '_Err']), 40,80,41,5);
+        else
+            p.(minerals{i}).(elements{j})=ones(41,1).*nanmean(pdata.(minerals{i}).(elements{j}));
+        end
         p.(minerals{i}).([elements{j} '_Err'])=nanvar(pdata.(minerals{i}).(elements{j}));
     end
 end
