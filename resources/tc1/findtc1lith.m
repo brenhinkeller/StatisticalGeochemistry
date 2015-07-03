@@ -1,11 +1,15 @@
-% Adds lithospheric thickness to "ignf" dataset using data from Artemieva's TC1 model
+function in=findtc1lith(in)
+% Adds lithospheric thickness to dataset using data from Artemieva's TC1 model
+if ~isstruct(in)
+    error('Requires struct input')
+end
 
 load tc1
-% load ignf
 
-lat=round(ignf.Latitude);
-lon=round(ignf.Longitude);
+lat=round(in.Latitude);
+lon=round(in.Longitude);
 
+%Check if out of range
 lat(lat>90 | lat<-90)=NaN;
 lon(lon>180 | lon<-180)=NaN;
 
@@ -27,6 +31,6 @@ for i=1:length(lat)
 end
 
 
-ignf.tc1Lith=lithosphere;
-ignf.tc1Crust=crust;
+in.tc1Lith=lithosphere;
+in.tc1Crust=crust;
     
