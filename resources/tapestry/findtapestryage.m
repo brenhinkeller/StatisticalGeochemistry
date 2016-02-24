@@ -1,4 +1,4 @@
-function [age type] = findtapestryage(lat,lon,varargin)
+function [age, type] = findtapestryage(lat,lon,varargin)
 % function color = findtapestryage(lat,lon,varargin)
 
 if nargin==3 && isstruct(varargin{1})

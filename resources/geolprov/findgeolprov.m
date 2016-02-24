@@ -57,8 +57,8 @@ end
 %        NaN % No data
 %        NaN % No data
 % ];
-% 
-% 
+%
+%
 % % Find the number of samples there are
 % nsamples=length(lat);
 % 
@@ -99,5 +99,5 @@ end
 % out=NaN(nsamples,1);
 % for i=1:nsamples
 %     [~,bestcolor]=min(sum([colors(:,1)-r(i) colors(:,2)-g(i) colors(:,3)-b(i)].^2,2));
-%     out(i)=types(bestcolor,:);
+%     out(i)=types(bestcolor,:); % Unnecessary colon?
 % end
