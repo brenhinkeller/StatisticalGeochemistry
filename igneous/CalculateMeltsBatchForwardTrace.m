@@ -11,17 +11,16 @@ batch='1\nsc.melts\n10\n1\n3\n1\nliquid\n1\n1.0\n0\n10\n0\n4\n0\n';
 melts=rmelts(sc,elems,'fo2path','None','batchstring',batch,'mode','isobaric','dT',-10,'Ti',1700,'Tf',800,'Pi',Pi);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% % Plot results
-% plotelements={'SiO2','Al2O3','CaO','MgO','FeO','Na2O'};
-% c=lines(length(plotelements));
-% figure;
-% for i=1:length(plotelements)
-%     hold on; plot(melts.liquid_0.mass,melts.liquid_0.(plotelements{i}),'Color',c(i,:))
-% end
-% legend(plotelements)
-% xlabel('Percent melt'); ylabel('wt. %');
-% title([num2str(H2O) ' Percent  H2O,  ' num2str(Pi) '  bar'])
-% tic;
+% Plot MELTS results
+plotelements={'SiO2','Al2O3','CaO','MgO','FeO','Na2O'};
+c=lines(length(plotelements));
+figure;
+for i=1:length(plotelements)
+    hold on; plot(melts.liquid_0.mass,melts.liquid_0.(plotelements{i}),'Color',c(i,:))
+end
+legend(plotelements)
+xlabel('Percent melt'); ylabel('wt. %');
+title([num2str(H2O) ' Percent  H2O,  ' num2str(Pi) '  bar'])
 
 
 % Determine minimum and maximum temperature in the simulation
