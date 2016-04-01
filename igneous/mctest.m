@@ -41,7 +41,7 @@ toc
 %% Run the monte carlo
 
 % Number of rows to simulate
-samplerows=1000000;
+samplerows=10000000;
 
 tic;
 mcign.data=NaN(samplerows,size(data,2));
