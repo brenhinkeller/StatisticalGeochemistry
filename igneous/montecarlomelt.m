@@ -1,4 +1,4 @@
-%% Calculate melt composition data
+%% Load melt composition  data
 
 %%%%%%%%%%%%%%%%%%%%%%% pMelts equil. batch melting %%%%%%%%%%%%%%%%%%%%%%%
 H2O=0.15; % Initial Water
@@ -40,7 +40,9 @@ end
 clear i
 
 
-% Create n matlab workers for parallel processing on n cores
+% % Create n matlab workers for parallel processing on n cores
+% % Uncomment the following code as well as the parfor loop below
+% % if you have matlab's Parallel Processing Toolbox installed.
 % n=4;
 % nn=matlabpool('size');
 % if nn>0&&nn~=n
@@ -102,10 +104,12 @@ simratio=zeros(nsims,1);
 data(data(:,1)<10 | isnan(data(:,1)),1)=10;
 
 % Run the simulation in parallel. Running the simulation task as a function
-% avoids problems with indexing in parallelized code.
+% avoids problems with indexing in parallelized code. Uncomment the parfor
+% loop (and remove the plain for loop) if you have the Parallel Toolbox.
+
 % parfor i=1:nsims
 for i=1:nsims
-    
+
     % mctask does all the hard work; simaverages and simerrors hold the results
     [simaverages(i,:,:) simerrors(i,:,:) simratio(i)]=mctaskmelt(data,prob,uncert,meltdata,Liquid_mass,T,Pi/10000,binedges,nbins);
         
@@ -137,10 +141,6 @@ while i>0
     xlabel('Age (Ma)')
     ylabel(simitemsout{i})
     title(simtitle)
-%     formatfigure
-%     saveas(gcf,[printtitle ' ' printnames{i} '.png'],'png')
-%     saveas(gcf,[printtitle ' 27k ' printnames{i} '.fig'],'fig')
-%     saveas(gcf,[printtitle ' 27k ' printnames{i} '.eps'],'epsc')
     i=i-1;
 end
 

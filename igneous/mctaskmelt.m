@@ -28,12 +28,12 @@ ages=sdata(:,2)+r.*sdata(:,1)/2;
 % Calculate temporary variables for each of the elements/ratios of interest
 param=NaN(size(sdata,1),1,3);
 
-composition = sdata(:,3:end);
+composition=[sdata(:,4)'; sdata(:,5)'; sdata(:,6)'; sdata(:,7)'; sdata(:,8)'; sdata(:,9)'; sdata(:,10)'];
 
-index=zeros(size(composition,1),1);
-for i=1:size(composition,1)
-    a=repmat(composition(i,:),size(meltdata,1),1);
-    [~, index(i)]=min(nansum(((a-meltdata)./a).^2,2)); % Minimize normalized misfit for each variable
+index=zeros(size(composition,2),1);
+for i=1:size(composition,2)
+    a=repmat(composition(:,i),1,size(meltdata,2));
+    [~, index(i)]=min(nansum(((a-meltdata)./a).^2,1));
 end
 
 param(:,1,1)=Liquid_mass(index); %Meltestimate
