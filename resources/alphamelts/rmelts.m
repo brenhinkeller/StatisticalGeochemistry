@@ -121,7 +121,7 @@ fclose(fid);
 
 % Run the command
 % Edit the following line(s to make sure you have a correct path to the 'run_alphamelts.command' perl script
-[~,~]=unix(['cd ' workdir '; run_alphamelts.command -f melts_env.txt -b batch.txt']);
+[~,~]=unix(['cd ' workdir '; /usr/local/bin/run_alphamelts.command -f melts_env.txt -b batch.txt']);
 
     
 % Import the results

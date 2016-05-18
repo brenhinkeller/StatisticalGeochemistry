@@ -23,7 +23,7 @@ while i<=length(lat)
 %             +1./((((age(i))-age)./75).^2+1));
 
     end
-    if mod(i,100)==0
+    if mod(i,100)==0 && i > 100
         bspstr=repmat('\b',1,floor(log10(i-100))+1);
         fprintf(bspstr)
         fprintf('%i',i)

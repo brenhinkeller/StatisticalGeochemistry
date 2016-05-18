@@ -106,14 +106,11 @@ xlabel('Percent Mantle Melt'); ylabel('Temperature')
 ylim([1200 1620])
 
 %%
-
-% traceelements={'La','Sm','Yb','U','Th','Zr','Hf','Nb','Rb'};
-% traceelements={'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Li','Sc','V','Cr','Co','Ni','Cu','Zn','Ga','Zr','Rb','Ba','Y','Pb','Nb','Sr','Ta','Mo','U','Cs','W','Th','Hf'};
+traceelements={'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Sc','V','Cr','Co','Ni','Cu','Zn','Ga','Zr','Rb','Ba','Y','Pb','Nb','Sr','Ta','Mo','U','Cs','W','Th','Hf'};
 % traceelements={'Rb','Ba','Th','U','K','Nb','Ta','La','Ce','Pb','Nd','Sr','Sm','Zr','Eu','Gd','Ti','Dy','Y','Er','Yb','Lu'}; % Elliott Elements
 % traceelements={'Cs','Rb','K','Ba','Sr','La','Sm','Tb','Y','Yb','Nb'}; % Tatsumi elements
 % traceelements={'Rb','K','Na','Li','Ba','Sr'}; %Mobile elements
 % traceelements={'Hf','Zr','Ti','Ta','Nb'}; % Nonmobile elements
-traceelements={'Ni','Cr','Co'}; % Compatible elements
 
 index=melts.liquid_0.Index;
 meltSiInd=round(melts.liquid_0.SiO2)-39;
@@ -211,7 +208,7 @@ xlabel('Age (Ma)'); ylabel('Apparent Mantle Melt (%)')
 
 [c,m,e]=bin(mcign.Age(test),mcign.La(test)./(mcign.La(test)+mcign.Yb(test)),0,4000,length(mcign.SiO2)./length(ign.SiO2),40); [m,e]=fracttoratio(m,e);
 distScaling=nanmean(m'./(calculated.La(indT)./calculated.Yb(indT)));
-figure; plot(t,calculated.La(indT)./calculated.Yb(indT).*distScaling*1.05,'r')
+figure; plot(t,calculated.La(indT)./calculated.Yb(indT).*distScaling,'r')
 hold on; errorbar(c,m,2*e,'.b')
 xlabel('Age (Ma)'); ylabel('La / Yb');
 
@@ -244,16 +241,6 @@ distScaling=nanmean(m'./(calculated.Nb(indT)./calculated.Th(indT)));
 figure; plot(t,calculated.Nb(indT)./calculated.Th(indT).*distScaling,'r')
 hold on; errorbar(c,m,2*e,'.b')
 xlabel('Age (Ma)'); ylabel('Nb / Th');
-
-figure; plot(t, calculated.Zr(indT),'r')
-xlabel('Age (Ma)'); ylabel('Zr');
-[c,m,e]=bin(mcign.Age(test),mcign.Zr(test),0,4000,length(mcign.SiO2)./length(ign.SiO2),40);
-hold on; errorbar(c,m,2*e,'.b')
-
-figure; plot(t, calculated.Nb(indT),'r')
-xlabel('Age (Ma)'); ylabel('Nb');
-[c,m,e]=bin(mcign.Age(test),mcign.Nb(test),0,4000,length(mcign.SiO2)./length(ign.SiO2),40);
-hold on; errorbar(c,m,2*e,'.b')
 
 figure; plot(enrichment)
 set(gca,'xtick',1:length(enrichment))
