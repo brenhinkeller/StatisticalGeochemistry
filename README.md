@@ -1,4 +1,4 @@
-This repository contains data and source code used used in the publications [“Statistical geochemistry reveals disruption in secular lithospheric evolution about 2.5 Gyr ago”](http://www.nature.com/doifinder/10.1038/nature11024) and “Geochemical evolution of basalts preserved in the continental crust throughout Earth history” (under review) by Keller and Schoene. All code by the authors is released under an [MIT open-source license](license)
+This repository contains data and source code used used in the publications [“Statistical geochemistry reveals disruption in secular lithospheric evolution about 2.5 Gyr ago”](http://www.nature.com/doifinder/10.1038/nature11024) and “Geochemical evolution of basalts preserved in the continental crust throughout Earth history” (under review) by Keller and Schoene. All code by the authors is released under an [MIT open-source license](LICENSE)
 
 CONTENTS:
 
