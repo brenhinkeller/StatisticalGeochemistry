@@ -1,0 +1,13 @@
+ “USGS Geologic Province Map” (1997)
+
+Available at http://earthquake.usgs.gov/data/crust/maps.php
+
+The authorship of this map is not stated, but has been associated with Walter Mooney. References used in the construction of this map are reported at the above website as follows:
+“The Tectonic Map of the World by Exxon (1985) was the main source of information to classify geologic provinces and thermo-tectonic age in the Phanerozoic.
+The maps 'Seismicity and Tectonics of Stable Continental Regions' of the project 'Earthquakes of Stable Continental Regions' by EPRI (1994); Precambrian Geology (Goodwin, 1991); and Principles of Precambrian Geology (Goodwin, 1996) were the main sources of information to classify regions of Precambrian thermo-tectonic age.
+Additional information was provided by:
+A.V. Peive, and A.L. Yanshin (eds)., Tectonic Map of Northern Eurasia (1980), Akademia nauk, SSSR;
+M. Downes and J. Simmonds (comments on Australia);
+A. Grantz (comments on the Arctic);
+W. Hamilton (comments on Australia, Indonesia and North America); and
+S. Kostiachenko (comments on Asia and Siberia)”

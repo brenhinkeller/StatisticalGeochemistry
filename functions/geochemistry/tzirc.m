@@ -27,7 +27,7 @@ Si=Si./normconst;
 
 
 M=(Na + K + 2*Ca)./(Al .* Si); % Cation ratio
-
+M(M==Inf)=NaN;
 
 %OLD: T=12900./(2.95 + 0.85*M + log(496000./Zr)) - 273.15; % Temperature in Celcius
 

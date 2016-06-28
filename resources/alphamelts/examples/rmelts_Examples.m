@@ -46,10 +46,10 @@ melts=rmelts(sc,elems,'fo2path','FMQ','batchstring',batch,'mode','isobaric','dT'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Plot results
-plotelements={'SiO2','Al2O3','CaO','MgO','FeO','Na2O'};
-c=lines(6);
+plotelements={'SiO2','Al2O3','CaO','MgO','FeO','Na2O','TiO2'};
+c=lines(length(plotelements));
 figure;
-for i=1:6
+for i=1:length(plotelements)
     hold on; plot(melts.liquid_0.mass,melts.liquid_0.(plotelements{i}),'Color',c(i,:))
 end
 legend(plotelements)
@@ -58,6 +58,7 @@ xlabel('Percent melt')
 ylabel('wt. %')
 set(gca,'XDir','reverse')
 xlim([0 100])
+
 
 
 %% Fractional crystallization of a magma from the liquidus

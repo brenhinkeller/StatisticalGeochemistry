@@ -1,0 +1,3 @@
+Data obtained from the Geochemical Earth Reference Model (GERM) Partition Coefficient Database at https://earthref.org/KDD/
+
+Individual references for each mineral are provided in [mineral name].txt, and in partitioncoeffsdata.mat (in the .samples field of the struct). Matlab files with the suffix ‘orig’ contain only GERM data; those without have been supplemented with additional references (mostly for minerals not included in GERM) from the literature. These additional references are listed along with the GERM references in partitioncoeffsdata.mat.

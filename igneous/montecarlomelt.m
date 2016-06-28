@@ -18,6 +18,12 @@ meltdata=[melts.liquid_0.TiO2'; melts.liquid_0.Al2O3'; melts.liquid_0.Fe2O3'+mel
 Liquid_mass=melts.liquid_0.mass;
 T=melts.liquid_0.Temperature;
 
+% % Old method (deprecated)
+% load melts20kbar
+% meltdata=[melts20kbar.TiO2'; melts20kbar.Al2O3'; melts20kbar.Fe2O3t'; melts20kbar.MgO'; melts20kbar.CaO'; melts20kbar.Na2O'; melts20kbar.K2O']; 
+% Liquid_mass=melts20kbar.Liquid_mass;
+% T=melts20kbar.T;
+
 %% Load required variables
 if ~exist('ign','var')
     load ign
@@ -56,7 +62,7 @@ clear i
 
 % Range of silica values to examine
 simin=43;
-simax=54;
+simax=51;
 
 % Variables dependant on silca range
 test=(ign.SiO2>simin&ign.SiO2<simax&~isnan(ign.TiO2)&~isnan(ign.Al2O3)&~isnan(ign.Fe2O3T)&~isnan(ign.CaO)&~isnan(ign.Na2O)&~isnan(ign.TiO2)&~isnan(ign.K2O)&ign.Elevation>-100);
@@ -147,19 +153,19 @@ end
 % matlabpool close force local
 
 %%
-% Save results
-mcmelt27k.bincenters=bincenters; mcmelt27k.simaverages=simaverages; mcmelt27k.simerrors=simerrors; mcmelt27k.simitems=simitemsout;
-save mcmelt27kign mcmelt27k
-
-
-%% Plot the results from saved
-
-% For each item in the simulation output, create a figure with the results
-i=length(simitemsout);
-while i>0
-    figure
-    errorbar(mcmelt27k.bincenters,nanmean(mcmelt27k.simaverages(:,:,i)),2.*nanmean(mcmelt27k.simerrors(:,:,i)),'.r')
-    xlabel('Age (Ma)')
-    ylabel(simitemsout{i})
-    i=i-1;
-end
+% % Save results
+% mcmelt27k.bincenters=bincenters; mcmelt27k.simaverages=simaverages; mcmelt27k.simerrors=simerrors; mcmelt27k.simitems=simitemsout;
+% save mcmelt27kign mcmelt27k
+% 
+% 
+% %% Plot the results from saved
+% 
+% % For each item in the simulation output, create a figure with the results
+% i=length(simitemsout);
+% while i>0
+%     figure
+%     errorbar(mcmelt27k.bincenters,nanmean(mcmelt27k.simaverages(:,:,i)),2.*nanmean(mcmelt27k.simerrors(:,:,i)),'.r')
+%     xlabel('Age (Ma)')
+%     ylabel(simitemsout{i})
+%     i=i-1;
+% end
