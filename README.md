@@ -1,11 +1,12 @@
-This repository contains data and source code used used in the publications [“Statistical geochemistry reveals disruption in secular lithospheric evolution about 2.5 Gyr ago”](http://www.nature.com/doifinder/10.1038/nature11024) and “Geochemical evolution of basalts preserved in the continental crust throughout Earth history” by Keller and Schoene.
+This repository contains data and source code used used in the publications [“Statistical geochemistry reveals disruption in secular lithospheric evolution about 2.5 Gyr ago”](http://www.nature.com/doifinder/10.1038/nature11024) and “Geochemical evolution of basalts preserved in the continental crust throughout Earth history” (under review) by Keller and Schoene.
 
 CONTENTS:
-Igneous: This directory contains the full igneous whole-rock dataset and associated Monte-Carlo code, along with various plotting scripts.
 
-Resources: Useful data and programs to accompany the whole-rock geochemical database. Includes alphaMELTS interface as well as code for finding properties such as crustal and lithospheric thickness, geologic province, etc., based on lat-lon coordinates. Data is derived from a variety of published sources, as cited in each subfolder.
+[Igneous](igneous): This directory contains the full igneous whole-rock dataset and associated Monte-Carlo code, along with various plotting scripts.
 
-Functions: This directory contains various short Matlab functions that are called by other Matlab programs in the repository as needed.
+[Resources](resources): Useful data and programs to accompany the whole-rock geochemical database. Includes alphaMELTS interface as well as code for finding properties such as crustal and lithospheric thickness, geologic province, etc., based on lat-lon coordinates. Data is derived from a variety of published sources, as cited in each subfolder.
+
+[Functions](functions): This directory contains various short Matlab functions that are called by other Matlab programs in the repository as needed.
 
 
 DEPENDENCIES:
