@@ -1,18 +1,6 @@
 function out = unelementify(in, varargin)
 % Separates an m by n matrix in.data into n column vectors according to the
-% n names in cell array in.elements. The input variable 'in' can be either
-% a struct or a string containing the name of a saved struct.
-
-% If the input is a string, fetch the struct that the string refers to
-if ischar(in)
-    name=in;
-    if exist([name '.mat'],'file')
-        eval(['load ' name])
-    else
-        error('data file does not exist')
-    end
-    eval(['in=' name ';'])
-end
+% n names in cell array in.elements. 
 
 % If the input data is not a struct, return error
 if ~isstruct(in)
@@ -32,7 +20,7 @@ end
 
 % If elements exists
 if isfield(in,'elements')
-    if isa(in.(in.elements{1}),'numeric')
+    if all(cellfun(@(x) isa(in.(x),'numeric'), in.elements))
         % Create .data matrix
         in.data=NaN(length(in.(in.elements{1})),length(in.elements));
         for i=1:length(in.elements)
@@ -48,13 +36,17 @@ if isfield(in,'elements')
             end
 
         end
-    elseif isa(in.(in.elements{1}),'cell')
+    elseif any(cellfun(@(x) isa(in.(x),'cell'), in.elements))
         % Create .data cell array
         in.data=cell(length(in.(in.elements{1})),length(in.elements));
         for i=1:length(in.elements)
             if isfield(in,in.elements{i})
                 % Fill .data matrix with the variables listed in .elements
-                in.data(:,i)=in.(in.elements{i});
+                if isnumeric(in.(in.elements{i}))
+                    in.data(:,i)=num2cell(in.(in.elements{i}));
+                else
+                    in.data(:,i)=in.(in.elements{i});
+                end
                 % Remove unneeded fields
                 if ~keep
                     in=rmfield(in, in.elements{i});

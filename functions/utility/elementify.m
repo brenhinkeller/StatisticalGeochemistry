@@ -20,7 +20,11 @@ end
 if isfield(in,'data') && isfield(in,'elements')
     % Create all the variables corresponding to the names in in.elements
     for i=1:length(in.elements)
-        in.(in.elements{i})=in.data(:,i);
+        if iscell(in.data) && all(cellfun(@isnumeric, in.data(:,i)))
+            in.(in.elements{i})=cell2mat(in.data(:,i));
+        else
+            in.(in.elements{i})=in.data(:,i);
+        end
     end
     
     % Remove unneeded data matrix
