@@ -18,11 +18,15 @@ while i<=length(age)
          k(i)=nansum(1./((age(i)-age).^2+1));
 
     end
+    % Display progress
     if mod(i,100)==0
-        bspstr=repmat('\b',1,floor(log10(i-100))+1);
-        fprintf(bspstr)
+        if i>100
+            bspstr=repmat('\b',1,floor(log10(i-100))+1);
+            fprintf(bspstr)
+        end
         fprintf('%i',i)
     end
+    % Increment i
     i=i+1;
 end
 fprintf('\n')
