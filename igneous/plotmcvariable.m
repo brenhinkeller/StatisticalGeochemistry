@@ -10,7 +10,6 @@ agemin=0;
 agemax=4000;
 
 rsi=[43,51,62,74,80];
-rsi=[43 51];
 for i=1:length(rsi)-1
     test=mcigncn1.SiO2>rsi(i)&mcigncn1.SiO2<rsi(i+1)&mcigncn1.Elevation>-100&~isnan(mcigncn1.(Elem));
     [c,m,e]=bin(mcigncn1.Age(test),mcigncn1.(Elem)(test),agemin,agemax,length(mcigncn1.SiO2)./length(igncn1.SiO2),40);
