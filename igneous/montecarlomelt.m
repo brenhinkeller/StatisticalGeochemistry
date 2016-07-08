@@ -71,7 +71,7 @@ printtitle=sprintf('si%g-%g',simin,simax);
 tic;
 
 % Number of simulations
-nsims=1000;
+nsims=10000;
 
 % Number of variables to run the simulation for
 ndata=3;
