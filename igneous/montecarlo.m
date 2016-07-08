@@ -111,9 +111,22 @@ while i>0
     i=i-1;
 end
 
+%% Print results to csv files
+
+% i=length(simitemsout);
+% averages = NaN(39,length(simitemsout)+1);
+% uncertainties = NaN(39,length(simitemsout)+1);
+% averages(:,1)=bincenters(1:39);
+% uncertainties(:,1)=bincenters(1:39);
+% for i=1:length(simitemsout)
+%     averages(:,i+1) = nanmean(simaverages(:,1:end-1,i))';
+%     uncertainties(:,i+1) = nanmean(simerrors(:,1:end-1,i))';
+% end
+% exportmatrix(averages,'averages.csv',',');
+% exportmatrix(uncertainties,'uncertainties.csv',',');
 
 %% Save results
-%
+
 % eval([savetitle '.bincenters=bincenters;']); eval([savetitle '.simaverages=simaverages;']); eval([savetitle '.simerrors=simerrors;']); eval([savetitle '.simitems=printnames;']);
 % for i=1:length(printnames)
 %     eval([savetitle '.' printnames{i} '=simaverages(:,:,' num2str(i) ');'])

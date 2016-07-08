@@ -24,12 +24,16 @@ sdata=sdata+sdata.*repmat(uncert,size(sdata,1),1).*randn(size(sdata));
 % Randomize ages over uncertainty interval
 r=randn(size(sdata(:,1)));
 ages=sdata(:,2)+r.*sdata(:,1)/2;
-
+q  
 % Calculate temporary variables for each of the elements/ratios of interest
 param=NaN(size(sdata,1),1,3);
 
-composition=[sdata(:,4)'; sdata(:,5)'; sdata(:,6)'; sdata(:,7)'; sdata(:,8)'; sdata(:,9)'; sdata(:,10)'];
+composition=NaN(size(sdata,2)-2,size(sdata,1));
+for i=1:(size(sdata,2)-2)
+    composition(i,:)=sdata(:,i+2)';
+end
 
+% Find best-fitting melt percentages
 index=zeros(size(composition,2),1);
 for i=1:size(composition,2)
     a=repmat(composition(:,i),1,size(meltdata,2));
