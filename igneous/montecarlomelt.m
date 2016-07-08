@@ -127,13 +127,12 @@ while i>0
 end
 
 
-%%
-% % Save results
-% mcmelt27k.bincenters=bincenters; mcmelt27k.simaverages=simaverages; mcmelt27k.simerrors=simerrors; mcmelt27k.simitems=simitemsout;
-% save mcmelt27kign mcmelt27k
-% 
-% 
-% %% Plot the results from saved
+%% Save results
+mcmelt.bincenters=bincenters; mcmelt.simaverages=simaverages; mcmelt.simerrors=simerrors; mcmelt.simitems=simitemsout;
+save(['mcmelt' num2str(Pi/1000) 'kign'],'mcmelt');
+
+
+%% Plot the results from saved
 % 
 % % For each item in the simulation output, create a figure with the results
 % i=length(simitemsout);

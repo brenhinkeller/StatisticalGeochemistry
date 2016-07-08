@@ -1,6 +1,6 @@
 %% Load data
 % Name of struct
-name='igne';
+name='ign';
 if ~exist(name,'var')
     load(name)
 end

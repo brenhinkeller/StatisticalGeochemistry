@@ -25,7 +25,13 @@ sdata=sdata+sdata.*repmat(uncert,size(sdata,1),1).*randn(size(sdata));
 r=randn(size(sdata(:,1)));
 ages=sdata(:,2)+r.*sdata(:,1)/2;
 
-composition=[sdata(:,4)'; sdata(:,5)'; sdata(:,6)'; sdata(:,7)'; sdata(:,8)'; sdata(:,9)'; sdata(:,10)'];
+% Reshape composition array
+composition=NaN(size(sdata,2)-2,size(sdata,1));
+for i=1:(size(sdata,2)-2)
+    composition(i,:)=sdata(:,i+2)';
+end
+
+% Find best-fitting melt percentages
 index=zeros(size(composition,2),1);
 residual=zeros(size(composition,2),1);
 for i=1:size(composition,2)

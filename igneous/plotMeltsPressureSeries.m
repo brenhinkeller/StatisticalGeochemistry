@@ -38,7 +38,7 @@ l = cell(nsims,1);
 hold on;
 for n=1:nsims
     h(n) = plot(melts{n}.liquid_0.(xelem),melts{n}.liquid_0.(yelem),'Color',[0,0,1-n/nsims/2]);
-    l{n} = [num2str(melts{n}.liquid_0.Pressure(1)) ' bar’];
+    l{n} = [num2str(melts{n}.liquid_0.Pressure(1)) ' bar'];
 end
 legend(h, l);
 
@@ -53,7 +53,7 @@ hold on;
 for n=1:nsims
     [~,i]=min(abs(melts{1}.liquid_0.mass-percentmelt));
     h(n) = plot(melts{n}.liquid_0.(xelem)(i),melts{n}.liquid_0.(yelem)(i),'.','MarkerSize',20,'Color',[0,0,1-n/nsims/2]);
-    l{n} = [num2str(melts{n}.liquid_0.Pressure(1)) ' bar’];
+    l{n} = [num2str(melts{n}.liquid_0.Pressure(1)) ' bar'];
 end
 legend(h, l);
 

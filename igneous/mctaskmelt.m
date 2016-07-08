@@ -24,10 +24,8 @@ sdata=sdata+sdata.*repmat(uncert,size(sdata,1),1).*randn(size(sdata));
 % Randomize ages over uncertainty interval
 r=randn(size(sdata(:,1)));
 ages=sdata(:,2)+r.*sdata(:,1)/2;
-q  
-% Calculate temporary variables for each of the elements/ratios of interest
-param=NaN(size(sdata,1),1,3);
 
+% Reshape composition array
 composition=NaN(size(sdata,2)-2,size(sdata,1));
 for i=1:(size(sdata,2)-2)
     composition(i,:)=sdata(:,i+2)';
@@ -40,6 +38,8 @@ for i=1:size(composition,2)
     [~, index(i)]=min(nansum(((a-meltdata)./a).^2,1));
 end
 
+% Populate temporary variables for each of the elements/ratios of interest
+param=NaN(size(sdata,1),1,3);
 param(:,1,1)=Liquid_mass(index); %Meltestimate
 param(:,1,2)=T(index); %Tempestimate
 param(:,1,3)=potentialtemperature(T(index)+273.15,P)-273.15; %Mantle potential tempestimate

@@ -144,9 +144,9 @@ for elem=traceelements;
 end
 
 % Find calculated melt fractions closest to inverted melt fractions
-if ~exist('mcmelt27k','var'); load mcmelt27kign; end;
-t=mcmelt27k.bincenters;
-F_t=nanmean(mcmelt27k.simaverages(:,:,1),1)'/100;
+if ~exist('mcmelt','var'); load mcmelt27kign; end;
+t=mcmelt.bincenters;
+F_t=nanmean(mcmelt.simaverages(:,:,1),1)'/100;
 indT=findclosest(F_t,F);
 
 % Load dataset
@@ -202,7 +202,7 @@ xlabel('Percent Melt'); ylabel('log10 D')
 figure; plot(melts.liquid_0.mass, D.La./D.Yb,'k')
 xlabel('Percent Melt'); ylabel('D La / D Yb')
 
-figure; errorbar(mcmelt27k.bincenters, nanmean(mcmelt27k.simaverages(:,:,1),1), 2*nanmean(mcmelt27k.simerrors(:,:,1),1),'.r')
+figure; errorbar(mcmelt.bincenters, nanmean(mcmelt.simaverages(:,:,1),1), 2*nanmean(mcmelt.simerrors(:,:,1),1),'.r')
 xlabel('Age (Ma)'); ylabel('Apparent Mantle Melt (%)')
 
 
