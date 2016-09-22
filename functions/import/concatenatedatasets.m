@@ -1,5 +1,5 @@
-function out=combinedatasets(in1,in2)
-% Combine two struct-based datasets with equal-length variables
+function out=concatenatedatasets(in1,in2)
+% Append two struct-based datasets
 
 % If the input data is not a struct, return error
 if ~isstruct(in1) || ~isstruct(in2)
@@ -14,7 +14,7 @@ if ~isfield(in2,'elements')
     in1.elements=fieldnames(in2);
 end
 
-% Find variable length, assuming it's the same for both structs
+% Find variable length
 in1length=length(in1.(in1.elements{1}));
 in2length=length(in2.(in2.elements{1}));
 

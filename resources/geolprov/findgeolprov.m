@@ -1,4 +1,5 @@
 function out=findgeolprov(lat,lon)
+% out=findgeolprov(lat,lon)
 load geolprov
 
 x=round((lon+180)*2161/360);

@@ -56,11 +56,16 @@ for i=1:length(melts.minerals)
         melts.(['orthoclase' melts.minerals{i}(9:end)]).mass=melts.(melts.minerals{i}).mass.*feldsparComp(:,3);
         melts.(['orthoclase' melts.minerals{i}(9:end)]).Temperature=melts.(melts.minerals{i}).Temperature;
         melts.minerals=unique([melts.minerals; ['anorthite' melts.minerals{i}(9:end)]; ['albite' melts.minerals{i}(9:end)]; ['orthoclase' melts.minerals{i}(9:end)];],'stable');
-    elseif ~isempty(strfind(lower(melts.minerals{i}),'rhmoxide'))
-        Ilmenite=(melts.rhmoxide0.TiO2+melts.rhmoxide0.MnO+(melts.rhmoxide0.TiO2*(71.8444/79.8768)-melts.rhmoxide0.MnO*(71.8444/70.9374)))/100;
-        Magnetite=(melts.rhmoxide0.FeO-(melts.rhmoxide0.TiO2-melts.rhmoxide0.MnO*79.8768/70.9374)*71.8444/79.8768)*(1+159.6882/71.8444)/100;
+    elseif ~isempty(strfind(lower(melts.minerals{i}),'rhm_oxide'))
+        if isfield(melts.(melts.minerals{i}),'MnO')
+            Ilmenite=(melts.(melts.minerals{i}).TiO2+melts.(melts.minerals{i}).MnO+(melts.(melts.minerals{i}).TiO2*(71.8444/79.8768)-melts.(melts.minerals{i}).MnO*(71.8444/70.9374)))/100;
+            Magnetite=(melts.(melts.minerals{i}).FeO-(melts.(melts.minerals{i}).TiO2)*71.8444/79.8768)*(1+159.6882/71.8444)/100;
+        else
+            Ilmenite=(melts.(melts.minerals{i}).TiO2 + melts.(melts.minerals{i}).TiO2*71.8444/79.8768)/100;
+            Magnetite=(melts.(melts.minerals{i}).FeO-melts.(melts.minerals{i}).TiO2*71.8444/79.8768)*(1+159.6882/71.8444)/100;
+        end
         Magnetite(Magnetite<0)=0;
-        Hematite=(melts.rhmoxide0.Fe2O3-Magnetite*100*159.6882/231.5326)/100;
+        Hematite=(melts.(melts.minerals{i}).Fe2O3-Magnetite*100*159.6882/231.5326)/100;
         melts.(['ilmenite' melts.minerals{i}(9:end)]).mass=melts.(melts.minerals{i}).mass.*Ilmenite;
         melts.(['ilmenite' melts.minerals{i}(9:end)]).Temperature=melts.(melts.minerals{i}).Temperature;
         melts.(['magnetite' melts.minerals{i}(9:end)]).mass=melts.(melts.minerals{i}).mass.*Magnetite;
@@ -79,7 +84,7 @@ for i=1:length(melts.minerals)
     melts.(melts.minerals{i}).Index=round((maxT-melts.(melts.minerals{i}).Temperature)./deltaT)+1;
     mass.(melts.minerals{i})=zeros(simlength,1);
     mass.(melts.minerals{i})(melts.(melts.minerals{i}).Index)=melts.(melts.minerals{i}).mass;
-    if isempty(strfind(melts.minerals{i},'liquid')) && isempty(strfind(melts.minerals{i},'water'))
+    if isempty(strfind(melts.minerals{i},'liquid')) && isempty(strfind(melts.minerals{i},'water')) && isempty(strfind(melts.minerals{i},'feldspar')) && isempty(strfind(melts.minerals{i},'rhm-oxide'))
         mass.solids=mass.solids+mass.(melts.minerals{i});
     end
 end

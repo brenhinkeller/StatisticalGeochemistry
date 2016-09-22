@@ -19,7 +19,7 @@ for i=1:length(elements)
         % If the column is more plausibly numeric than not, treat it as such
         NumericColumns(i)=true;
         rawdata(2:end,i)=cellfun(@addnanstring,rawdata(2:end,i),'UniformOutput',false); %NaN out cells that don't contain digits
-        rawdata(2:end,i)=regexprep(rawdata(2:end,i),'[^0-9.(NaN)]',''); % Remove any characters that aren't digits, a decimal point, or a NaN
+        rawdata(2:end,i)=regexprep(rawdata(2:end,i),'[^-0-9.eE(NaN)]',''); % Remove any characters that aren't digits, a decimal point, or a NaN
     end
 end
 % If the variable name includes 'Sample_ID', treat it as text

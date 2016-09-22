@@ -1,4 +1,4 @@
-function [bincenters,averages,errors]=bin(x,y,min,max,oversamplingratio,nbins,varargin)
+function [bincenters,averages,errors,N]=binN(x,y,min,max,oversamplingratio,nbins,varargin)
 if nargin==6
     binwidth=(max-min)/nbins;
     binedges=linspace(min,max,nbins+1);
@@ -6,10 +6,12 @@ if nargin==6
     
     averages=NaN(1,nbins);
     errors=NaN(1,nbins);
+    N=NaN(1,nbins);
 
     for i=1:nbins
         averages(i)=nanmean(y(x>binedges(i)&x<binedges(i+1)));
         errors(i)=nansem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
+        N(i)=sum(x>binedges(i)&x<binedges(i+1));
     end
     
     
@@ -21,10 +23,12 @@ elseif nargin==7
     
     averages=NaN(1,nbins);
     errors=NaN(1,nbins);
-    
+    N=NaN(1,nbins);
+
     for i=1:nbins
         averages(i)=nanmean(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth));
         errors(i)=nansem(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth)).*sqrt(oversamplingratio);
+        N(i)=sum(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth);
     end  
 elseif nargin<6
     error('Too few input arguments.')
