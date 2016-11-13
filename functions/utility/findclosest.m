@@ -1,4 +1,5 @@
 function index=findclosest(source, target)
+% index=findclosest(source, target)
 % Return the index of the closest value of Target for each value in Source
 
 source=source(:);
