@@ -47,8 +47,8 @@ figure
 hold on
 for i = 1:length(timeRange)-1;
     test=mcign.(Elem)>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
-    [c,m,e]=bin(mcign.SiO2(test),mcign.(Elem)(test),45,75,length(mcign.SiO2)./length(ign.SiO2),10);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])
+    [c,m,e]=bin(mcign.SiO2(test),mcign.(Elem)(test),40,80,length(mcign.SiO2)./length(ign.SiO2),10);
+    errorbar(c,m,2*e,'.-','color',[i/(length(timeRange)-1) 0 1-i/(length(timeRange)-1)])
     %polytool(c,m,4,0.05)
 end
 
@@ -67,7 +67,7 @@ hold on
 for i = 1:length(timeRange)-1;
     test=mcign.(Elem)>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
     [c,m,e]=bin(mcign.MgO(test),mcign.(Elem)(test),4,10,length(mcign.SiO2)./length(ign.SiO2),6);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])
+    errorbar(c,m,2*e,'.-','color',[i/(length(timeRange)-1) 0 1-i/(length(timeRange)-1)])
     %polytool(c,m,4,0.05)
 end
 
@@ -87,7 +87,7 @@ hold on
 for i = 1:length(timeRange)-1;
     test=mcign.(Num)>0&mcign.(Den)>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
     [c,m,e]=bin(mcign.MgO(test),mcign.(Num)(test)./(mcign.(Num)(test)+mcign.(Den)(test)),4,10,length(mcign.SiO2)./length(ign.SiO2),6); [m e]=fracttoratio(m,e);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])
+    errorbar(c,m,2*e,'.-','color',[i/(length(timeRange)-1) 0 1-i/(length(timeRange)-1)])
 end
 
 xlabel('MgO'); ylabel([Num '  /  ' Den])
@@ -105,7 +105,7 @@ hold on
 for i = 1:length(timeRange)-1;
     test=mcign.TiO2>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
     [c m e]=bin(mcign.MgO(test),mcign.TiO2(test),0,12,length(mcign.SiO2)./length(ign.SiO2),10);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])    
+    errorbar(c,m,2*e,'.-','color',[i/(length(timeRange)-1) 0 1-i/(length(timeRange)-1)])    
 end
 
 xlabel('MgO'); ylabel('TiO2')
@@ -122,7 +122,7 @@ hold on
 for i = 1:length(timeRange)-1;
     test=mcign.(Elem)>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
     [c,m,e]=bin(mcign.MgO(test),mcign.(Elem)(test),3,12,length(mcign.SiO2)./length(ign.SiO2),8);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])
+    errorbar(c,m,2*e,'.-','color',[i/(length(timeRange)-1) 0 1-i/(length(timeRange)-1)])
     %polytool(c,m,4,0.05)
 end
 

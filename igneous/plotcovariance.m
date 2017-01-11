@@ -1,9 +1,11 @@
 %% Load data
 % Name of struct
-name='ign';
+name='mcigne';
 if ~exist(name,'var')
     load(name)
 end
+eval(['in = ' name ';']);
+load YlCn
 
 % Names of fields of struct that you want to make a covariance matrix for:
 
@@ -16,11 +18,11 @@ end
 % Symmetric
 plotitems={'SiO2','K2O','Rb','Th','U','Pb','Tl','Cs','Li','Na2O','Al2O3','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','F','Ga','Sn','Cd','Zn','P2O5','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cr2O3'};
 
-eval(['data=' name '.' plotitems{1} ';'])
-
-for i=2:length(plotitems)
-    eval(sprintf('data=[data %s.%s];', name, plotitems{i}))
+data = NaN(length(in.SiO2),length(plotitems));
+for i=1:length(plotitems)
+    data(:,i) = in.(plotitems{i});
 end
+
 
 %% Make a pairwise covariance matrix, ignoring NaNs
 covmat=zeros(length(data(1,:)));
@@ -46,8 +48,63 @@ imagesc(covmat,[-0.8,1]);
 
 set(gca,'YTick',1:1:length(plotitems))
 set(gca,'YTickLabel', {plotitems{1:end}})
-set(gca,'XTick',[])
+set(gca,'XAxisLocation','top')
+set(gca,'XTickLabelRotation',90)
+set(gca,'XTick',1:1:length(plotitems))
+set(gca,'XTickLabel', {plotitems{1:end}})
+colormap(YlCn)
 
+%% Compare and plot covarinace of Archean vs Phanerozoic samples
 
+% Archean first
+atest = in.Age > 2500; % & (isnan(mcigne.Ta) | mcigne.Ta<9 | mcigne.Ta > 11); %% Ignore anomalous Papunen Ta data with Ta=10
+data = NaN(length(in.SiO2(atest)),length(plotitems));
+for i=1:length(plotitems)
+    data(:,i) = in.(plotitems{i})(atest);
+end
+acovmat=zeros(length(data(1,:)));
+for i=1:length(data(1,:))
+   for j=1:i
+       a=data(:,i);
+       b=data(:,j);
+       c=~isnan(a+b);
+       if sum(c)>3
+           acovmat(i,j)=corr(a(c),b(c));
+       else
+           acovmat(i,j)=0;
+       end
+       acovmat(j,i)=acovmat(i,j);
+   end
+end
 
+% Then Phanerozoic
+ptest = in.Age < 541;
+data = NaN(length(in.SiO2(ptest)),length(plotitems));
+for i=1:length(plotitems)
+    data(:,i) = in.(plotitems{i})(ptest);
+end
+pcovmat=zeros(length(data(1,:)));
+for i=1:length(data(1,:))
+   for j=1:i
+       a=data(:,i);
+       b=data(:,j);
+       c=~isnan(a+b);
+       if sum(c)>3
+           pcovmat(i,j)=corr(a(c),b(c));
+       else
+           pcovmat(i,j)=0;
+       end
+       pcovmat(j,i)=pcovmat(i,j);
+   end
+end
 
+covmat = acovmat-pcovmat;
+
+figure; imagesc(covmat,[-0.5,0.5]);
+set(gca,'YTick',1:1:length(plotitems))
+set(gca,'YTickLabel', plotitems(1:end))
+set(gca,'XAxisLocation','top')
+set(gca,'XTickLabelRotation',90)
+set(gca,'XTick',1:1:length(plotitems))
+set(gca,'XTickLabel', plotitems(1:end))
+colormap(YlCn);

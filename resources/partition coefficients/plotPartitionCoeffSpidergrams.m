@@ -104,3 +104,44 @@ title('Garnet')
 for j=1:length(p.minerals)
     p.(p.minerals{j}).Pm(:)=NaN;
 end
+
+%% Plot kd vs SiO2 for various minerals.
+
+% Pick a silica range
+SiO2=65;
+% minerals=p.minerals;
+minerals={'Garnet','Clinopyroxene','Magnetite','Ilmenite','Amphibole','Biotite'}; % Major
+% minerals={'CaPerovskite','Nepheline','Cordierite','Ilmenite','Biotite','Spinel','Rutile'}; % Minor
+% minerals={'Monazite','Allanite','Xenotime','Apatite','Sphene'}; % Accessory
+% minerals={'Allanite','Zircon','Apatite','Sphene','Orthoclase','Anorthite','Clinopyroxene','Amphibole'}; % Bergell
+% minerals={'Anorthite','Albite','Orthoclase','Biotite','Amphibole','Garnet','Pyroxene','Olivine'}; % Major
+
+p.minerals = unique([p.minerals; 'Pyroxene']);
+p.Pyroxene.elements = p.Orthopyroxene.elements;
+for i=1:length(p.Pyroxene.elements)
+    e = p.Pyroxene.elements{i};
+    p.Pyroxene.(e) = nanmean([p.Orthopyroxene.(e),p.Clinopyroxene.(e)],2);
+end
+
+
+minerals=minerals(logical(cellfun(@(x) sum(ismember(p.minerals, x)), minerals)));
+
+elem='Zr';
+
+figure;
+c=lines(length(minerals));
+trend=NaN(length(minerals),length(elem));
+for j=1:length(minerals)
+
+  
+    hold on; plot(p.SiO2,10.^p.(minerals{j}).(elem),'.-','Color',c(j,:),'MarkerSize',10) % Skip missing elements
+    
+
+end
+
+xlabel('SiO2')
+
+ylabel('Estimated average mineral/melt Kd');
+legend(minerals)
+title(['Selected mineral/melt ' elem ' partition coefficients'])
+formatfigure
