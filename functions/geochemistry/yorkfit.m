@@ -1,4 +1,4 @@
-function [a, sa, b, sb, mswd]=yorkfit(x,sx,y,sy)
+function [a, sa, b, sb, mswd]=yorkfit(x,sx,y,sy,varargin)
 % [a sa b sb]=yorkfit(x,sx,y,sy)
 % Uses the York(1969) fit to calculate a,b, and uncertanties 
 % sa, sb for the equation y=a+bx
@@ -56,7 +56,7 @@ for i=1:10
         sum(z.^2 .* U .* (U./wy + b.*V./wx - (b.*U +V).*r./alpha));
     
     a=Ym-b.*Xm;
-    hold on; plot(40:80,a+b*(40:80))
+%     hold on; plot(40:80,a+b*(40:80))
 end
 
 
@@ -79,6 +79,7 @@ mswd=1./length(x).*sum( (y-a-b.*x).^2 ./ (sy.^2+b.^2.*sx.^2) );
 
 
 %% Print results
-
-sprintf('y=a+bx:\n a= %.8g +/- %3.2g \n b= %.8g +/- %3.2g \n mswd= %.2g',a,sa,b,sb,mswd)
+if nargin > 4 && strcmp(varargin{1},'print')
+    fprintf('y=a+bx:\n a= %.8g +/- %3.2g \n b= %.8g +/- %3.2g \n mswd= %.2g\n\n',a,sa,b,sb,mswd)
+end
 

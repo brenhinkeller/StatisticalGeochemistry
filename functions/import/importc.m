@@ -1,18 +1,8 @@
 function [dataout]=importc(filename,varargin)
-% [data]=import(filename, delimiter, difficulty)
+% [data]=import(filename, [delimiter], [headerlines])
 % Import arbitrary delimited ASCII data into a cell array
 
-% If the requested file exists on the path, open it; otherwise return an error
-if exist(filename,'file')==2
-    fid=fopen(filename);
-    data=textscan(fid,'%s','Delimiter','\n');
-    data=data{1};
-    fclose(fid);
-else error([filename ' does not exist on path.'])
-end
-
-
-if nargin==2;
+if nargin>1;
     % Use provided delimiter
     delimiter=varargin{1};
     % Convert '\t' to a tab character
@@ -33,6 +23,21 @@ else
             maxdelims=sum(testdata==delims(i));
         end
     end
+end
+
+if nargin==3
+    firstline = varargin{2}+1;
+else
+    firstline = 1;
+end
+    
+% If the requested file exists on the path, open it; otherwise return an error
+if exist(filename,'file')==2
+    fid=fopen(filename);
+    data=textscan(fid,'%s','Delimiter','\n');
+    data=data{1}(firstline:end);
+    fclose(fid);
+else error([filename ' does not exist on path.'])
 end
 
 

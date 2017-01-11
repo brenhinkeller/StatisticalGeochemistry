@@ -1,4 +1,8 @@
 function [wx,wsigma,mswd]=wmean(x,sigma)
+% [wx,wsigma,mswd]=wmean(x,sigma)
+% Calculate a simple weighted mean and mswd for the data in x with
+% uncertainty sigma
+
 if length(x) == 1
     wx = x;
     wsigma = sigma;

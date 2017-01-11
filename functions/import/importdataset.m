@@ -1,4 +1,4 @@
-function [data,textdata] = importdataset(filename, varargin)
+function [data,varargout] = importdataset(filename, varargin)
 % Import a dataset as two structs, one for numeric data and one for text
 
 rawdata=importc(filename,varargin{:});
@@ -47,6 +47,14 @@ if sum(TextColumns)>0
 else
     textdata=[];
 end
+
+if nargout>1
+    varargout{1} = textdata;
+else
+    data = mergedatasets(textdata,data);
+end
+    
+    
 
 
 
