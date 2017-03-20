@@ -1,4 +1,5 @@
 function [Zr,M]=tzircZr(CaO, Na2O, K2O, Al2O3, SiO2, TiO2, FeOT, MgO, MnO, P2O5, T)
+% [Zr,M]=tzircZr(CaO, Na2O, K2O, Al2O3, SiO2, TiO2, FeOT, MgO, MnO, P2O5, T)
 % Calculate zircon saturation concentration for a given temperature (in C)
 
 %Cation ratio

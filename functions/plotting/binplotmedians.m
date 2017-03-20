@@ -9,7 +9,7 @@ errors=NaN(1,nbins);
 
 for i=1:nbins
     averages(i)=nanmedian(y(x>binedges(i)&x<binedges(i+1)));
-    errors(i)=nansem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
+    errors(i)=nanmsem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
     
 end
 

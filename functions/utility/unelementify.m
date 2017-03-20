@@ -1,78 +1,81 @@
-function out = unelementify(in, varargin)
-% Separates an m by n matrix in.data into n column vectors according to the
-% n names in cell array in.elements. 
+function strct = unelementify(strct, varargin)
+% strct = UNELEMENTIFY(strct, ['keep'])
+% Separates an M by N matrix strct.data into N column vectors according to 
+% the N names in cell array strct.elements. If 'keep' flag is selected, the
+% preexisting variables will be retained
 
 % If the input data is not a struct, return error
-if ~isstruct(in)
-    error('requires struct input.')
-end
-
-% Deterimine if individual fields should be kept
-if nargin==2
-    if all(varargin{1}=='keep') || all(varargin{1}=='k')
-        keep=1;
+    if ~isstruct(strct)
+        error('requires struct input.')
     end
-else
-    keep=0;
-end
-
-
-
-% If elements exists
-if isfield(in,'elements')
-    if all(cellfun(@(x) isa(in.(x),'numeric'), in.elements))
-        % Create .data matrix
-        in.data=NaN(length(in.(in.elements{1})),length(in.elements));
-        for i=1:length(in.elements)
-            if isfield(in,in.elements{i})
-                % Fill .data matrix with the variables listed in .elements
-                in.data(:,i)=in.(in.elements{i});
-                % Remove unneeded fields
-                if ~keep
-                    in=rmfield(in, in.elements{i});
-                end
-            else
-                sprintf('Missing field "%s"',in.elements{i})
-            end
-
-        end
-    elseif any(cellfun(@(x) isa(in.(x),'cell'), in.elements))
-        % Create .data cell array
-        in.data=cell(length(in.(in.elements{1})),length(in.elements));
-        for i=1:length(in.elements)
-            if isfield(in,in.elements{i})
-                % Fill .data matrix with the variables listed in .elements
-                if isnumeric(in.(in.elements{i}))
-                    in.data(:,i)=num2cell(in.(in.elements{i}));
-                else
-                    in.data(:,i)=in.(in.elements{i});
-                end
-                % Remove unneeded fields
-                if ~keep
-                    in=rmfield(in, in.elements{i});
-                end
-            else
-                sprintf('Missing field "%s"',in.elements{i})
-            end
+    
+% Deterimine if individual fields should be kept
+    if nargin==2
+        if all(varargin{1}=='keep') || all(varargin{1}=='k')
+            keep=1;
         end
     else
-        error('invalid data type')
+        keep=0;
     end
     
     
-    % Save the results
-%     if exist('name','var')
-%         eval([name '=in;'])
-%         eval(['save ' name '.mat ' name])
-%     else
-%         out=in;
-%     end
-    out=in;
-else
-    error('input does not contain .elements field')
-end
-
-
-
+    
+% If field '.elements' exists, combine each named variable into an array
+    if isfield(strct,'elements') 
+        
+  % If all variables are numeric, we can use a numeric array
+        if all(cellfun(@(x) isa(strct.(x),'numeric'), strct.elements))
+            % Create .data matrix
+            strct.data=NaN(length(strct.(strct.elements{1})),length(strct.elements));
+            for i=1:length(strct.elements)
+                if isfield(strct,strct.elements{i})
+                    % Fill .data matrix with the variables listed in .elements
+                    strct.data(:,i)=strct.(strct.elements{i});
+                    
+                    % Remove unneeded fields if 'keep' option was not specified
+                    if ~keep
+                        strct=rmfield(strct, strct.elements{i});
+                    end
+                    
+                % Print warning if any fields are missing
+                else
+                    warning('Missing field "%s"',strct.elements{i})
+                end
+                
+            end
+            
+  % If any variables are not numeric, we must use a cell array
+        elseif any(cellfun(@(x) isa(strct.(x),'cell'), strct.elements))
+            % Create .data cell array
+            strct.data=cell(length(strct.(strct.elements{1})),length(strct.elements));
+            for i=1:length(strct.elements)
+                if isfield(strct,strct.elements{i})
+                    % Fill .data matrix with the variables listed strct .elements
+                    if isnumeric(strct.(strct.elements{i}))
+                        strct.data(:,i)=num2cell(strct.(strct.elements{i}));
+                    else
+                        strct.data(:,i)=strct.(strct.elements{i});
+                    end
+                    
+                    % Remove unneeded fields if 'keep' option was not specified
+                    if ~keep
+                        strct=rmfield(strct, strct.elements{i});
+                    end
+                    
+                % Print warning if any fields are missing
+                else
+                    warning('Missing field "%s"',strct.elements{i})
+                end
+            end
+            
+  % If variables are not numeric or cell, return error
+        else
+            error('Invalid data type')
+        end
+        
+% Complain and quit if we don't have a '.elements' field
+    else
+        error('Input is missing ''.elements'' field')
+    end
 end
 

@@ -1,4 +1,4 @@
-function kml2(lat,lon,age)
+function kmlAge(lat,lon,age)
 % Makes a Google Earth kml file containing markers at each latitude -
 % longitude pair in the vectors lat and lon.
 

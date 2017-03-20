@@ -5,7 +5,7 @@ end
 if ~ischar(x) % NaN-out non-strings
     x='NaN';
 else
-    x=regexprep(x,'[^0-9.]',''); % Remove any characters that aren't digits or a decimal point
+    x=regexprep(x,'[^-0-9.eE]',''); % Remove any characters that aren't digits or a decimal point
     if ~any(isstrprop(x,'digit')) % NaN-out strings without at least one digit
         x='NaN';
     elseif length(strfind(x,'.')) > 1 % NaN-out strings with multiple decimal places

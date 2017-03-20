@@ -1,4 +1,5 @@
-function [T,M]=tzirc(CaO, Na2O, K2O, Al2O3, SiO2, TiO2, FeOT, MgO, MnO, P2O5, Zr)
+function [T,M]=tzirc(CaO, Na2O, K2O, Al2O3, SiO2, TiO2, FeOT, MgO, MnO, P2O5, Zr, varargin)
+% [T,M]=tzirc(CaO, Na2O, K2O, Al2O3, SiO2, TiO2, FeOT, MgO, MnO, P2O5, Zr, varargin)
 % Calculate zircon saturation temperature in C
 
 %Cation ratio
@@ -29,10 +30,14 @@ Si=Si./normconst;
 M=(Na + K + 2*Ca)./(Al .* Si); % Cation ratio
 M(M==Inf)=NaN;
 
-%OLD: T=12900./(2.95 + 0.85*M + log(496000./Zr)) - 273.15; % Temperature in Celcius
 
 % Boehnke, Watson, et al., 2013
 T=10108./(0.32 + 1.16*M + log(496000./Zr)) - 273.15; % Temperature in Celcius
+
+if nargin>11 && any(strcmpi('watson',varargin))
+   T=12900./(2.95 + 0.85*M + log(496000./Zr)) - 273.15; % Temperature in Celcius
+end
+
 
 T(Zr<=0)=NaN;
 

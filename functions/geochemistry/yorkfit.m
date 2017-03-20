@@ -1,5 +1,5 @@
 function [a, sa, b, sb, mswd]=yorkfit(x,sx,y,sy,varargin)
-% [a sa b sb]=yorkfit(x,sx,y,sy)
+% [a sa b sb]=yorkfit(x,sx,y,sy,...)
 % Uses the York(1969) fit to calculate a,b, and uncertanties 
 % sa, sb for the equation y=a+bx
 

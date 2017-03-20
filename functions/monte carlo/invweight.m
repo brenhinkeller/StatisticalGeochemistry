@@ -1,10 +1,18 @@
-function out = invweight(lat,lon,age)
+function out = invweight(lat,lon,age,varargin)
 % Produce a weighting coefficient for each row of data corresponding 
 % to the input lat, lon, and age that is inversely proportional to the 
 % spatiotemporal data concentration
 
 % Check if there is lat, lon, and age data
 nodata=isnan(lat) | isnan(lon) | isnan(age);
+
+% Set exponent for weighting norm
+if nargin==3
+    p = 2;
+else
+    p = varargin{1};
+end
+fprintf('p = %i\n',p)
 
 i=1;
 k=zeros(length(lat),1);
@@ -15,8 +23,8 @@ while i<=length(lat)
         k(i)=Inf;
     else
         % Otherwise, calculate weight
-        k(i)=nansum(1./((180/pi*acos(sin(lat(i)*pi/180).*sin(lat*pi/180)+cos(lat(i)*pi/180).*cos(lat*pi/180).*cos(lon(i)*pi/180-lon*pi/180))/1.8).^2+1)...
-            +1./((((age(i))-age)/38).^2+1));        
+        k(i)=nansum(1./((180/pi*acos(sin(lat(i)*pi/180).*sin(lat*pi/180)+cos(lat(i)*pi/180).*cos(lat*pi/180).*cos(lon(i)*pi/180-lon*pi/180))/1.8).^p+1)...
+            +1./((((age(i))-age)/38).^p+1));        
 %         ka(i)=nansum(1./((acos(sin(lat(i)*pi/180).*sin(lat*pi/180)+cos(lat(i)*pi/180).*cos(lat*pi/180).*cos(lon(i)*pi/180-lon*pi/180))*180/pi/.018).^2+1));
 %         kb(i)=nansum(1./(((age(i)-age)/.38).^2+1));
 %         k(i)=nansum(1./(((((lat(i))-lat)/2).^2+(((lon(i))-lon)/2).^2+1))...

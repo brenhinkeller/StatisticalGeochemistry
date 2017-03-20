@@ -1,4 +1,8 @@
 function [bincenters,averages,errors]=binmedians(x,y,min,max,oversamplingratio,nbins,varargin)
+% [bincenters,averages,errors]=bin(x,y,min,max,oversamplingratio,nbins,varargin)
+% Return the median values for independent variable y binned as a funciton 
+% of independent variable x.
+
 if nargin==6
     binoverlap = 0;
 elseif nargin==7 
@@ -19,6 +23,8 @@ if binoverlap>1
     for i=1:nbins
         averages(i)=nanmedian(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth));
         errors(i)=nansem(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth)).*sqrt(oversamplingratio);
+%         errors(i)=nanmad(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth)).*sqrt(oversamplingratio/sum(~isnan(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth))));
+        errors(i)=nanmsem(y(x>bincenters(i)-binhalfwidth&x<bincenters(i)+binhalfwidth)).*sqrt(oversamplingratio);
     end 
 else
     binwidth=(max-min)/nbins;
@@ -27,6 +33,8 @@ else
 
     for i=1:nbins
         averages(i)=nanmedian(y(x>binedges(i)&x<binedges(i+1)));
-        errors(i)=nansem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
+%         errors(i)=nansem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
+%         errors(i)=nanmad(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio/sum(~isnan(y(x>binedges(i)&x<binedges(i+1)))));
+        errors(i)=nanmsem(y(x>binedges(i)&x<binedges(i+1))).*sqrt(oversamplingratio);
     end
 end

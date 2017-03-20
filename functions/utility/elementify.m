@@ -1,50 +1,42 @@
-function out = elementify(in, varargin)
-% Separates an m by n matrix in.data into n column vectors according to the
-% n names in cell array in.elements.
+function strct = elementify(strct, varargin)
+% strct = ELEMENTIFY(strct, ['keep'])
+% Separates an M by N matrix strct.data into N column vectors according to
+% the N names in cell array strct.elements. If 'keep' flag is selected, the
+% preexisting '.data' field will be retained
 
 % If the input data is not a struct, return error
-if ~isstruct(in)
-    error('requires struct input.')
-end
-
-% Deterimine if individual fields should be kept
-if nargin==2
-    if all(varargin{1}=='keep') || all(varargin{1}=='k')
-        keep=1;
+    if ~isstruct(strct)
+        error('Requires struct input.')
     end
-else
-    keep=0;
-end
-
-% If data exists  
-if isfield(in,'data') && isfield(in,'elements')
-    % Create all the variables corresponding to the names in in.elements
-    for i=1:length(in.elements)
-        if iscell(in.data) && all(cellfun(@isnumeric, in.data(:,i)))
-            in.(in.elements{i})=cell2mat(in.data(:,i));
-        else
-            in.(in.elements{i})=in.data(:,i);
+    
+% Deterimine if previous data field should be retained
+    if nargin==2
+        if all(varargin{1}=='keep') || all(varargin{1}=='k')
+            keep=1;
         end
+    else
+        keep=0;
     end
     
-    % Remove unneeded data matrix
-    if ~keep
-        in=rmfield(in, 'data');
+% If strct.data field exists, distribute each column into its own variable
+    if isfield(strct,'data') && isfield(strct,'elements')
+        % Create all the variables corresponding to the names in strct.elements
+        for i=1:length(strct.elements)
+            if iscell(strct.data) && all(cellfun(@isnumeric, strct.data(:,i)))
+                strct.(strct.elements{i})=cell2mat(strct.data(:,i));
+            else
+                strct.(strct.elements{i})=strct.data(:,i);
+            end
+        end
+        
+        % Remove unneeded data matrix s
+        if ~keep
+            strct=rmfield(strct, 'data');
+        end
+
+% Otherwise, return error
+    else
+        error('Input is missing either ''.data'' or ''.elements'' field')
     end
-    
-    % Save the results
-%     if exist('name','var')
-%         eval([name '=in;'])
-%         eval(['save ' name '.mat ' name])
-%     else
-%         out=in;
-%     end
-    out=in;
-else
-    error('input does not contain .data or .elements field')
-end
-    
-
-
 end
 

@@ -1,5 +1,9 @@
 
 function exportdataset(dataset,filename,delimiter)
+% exportdataset(dataset,filename,delimiter)
+% Save the struct 'dataset' as a delimited ASCII file. Variables saved as 
+% columns, with column/field names specified in dataset.elements
+
 fp = fopen(filename,'w');
 
 if length(delimiter)==2 && all(delimiter == '\t')
