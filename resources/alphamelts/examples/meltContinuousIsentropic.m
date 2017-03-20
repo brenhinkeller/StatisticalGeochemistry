@@ -25,7 +25,7 @@ potentialtemp=1350; % Potenital temperature
 
 
 %%%%%%%%%%%%%%%%%%%%%% pMelts continuous isentropic %%%%%%%%%%%%%%%%%%%%%%%
-tH2O=0; % Do not use trace water
+tH2O=0;
 H2O=0.15; % Initial water content
 % Starting composition
 sc=[44.8030; 0.1991; 4.4305; 0.9778; 0.3823; 7.1350; 0.1344; 37.6345; 0.2489; 0.0129; 3.5345; 0.3584; 0.0289; 0.0209; H2O;];
@@ -42,7 +42,9 @@ toc
 
 
 % Import MELTS data and calculate integrated liquid compositon
-bulk=txt2mat('out1/bulk_comp_tbl.txt');
+data=importdataset('out1/bulk_comp_tbl.txt',' ',1);
+data = unelementify(data);
+bulk = data.data;
 i=1; while ~(bulk(i+1,3)<bulk(i,3)); i=i+1; end % Determine point at which mass loss (melting) begins
 liquid=zeros(size(bulk,1)-i, size(bulk,2)); % Make matrix to hold liquid comp.
 liquid(:,1:2)=bulk(i:end-1,1:2); % Copy P and T from bulk file

@@ -1,15 +1,16 @@
 %% Plot spider diagram type plots for REEs
 
-
+load partitioncoeffs.mat
 
 % Pick a silica range
 SiO2=65;
 % minerals=p.minerals;
-minerals={'Garnet','Amphibole','Clinopyroxene','Orthopyroxene','Olivine','Anorthite','Orthoclase','Albite'}; % Major
+% minerals={'Garnet','Amphibole','Clinopyroxene','Orthopyroxene','Olivine','Anorthite','Orthoclase','Albite'}; % Major
 % minerals={'CaPerovskite','Nepheline','Cordierite','Ilmenite','Biotite','Spinel','Rutile'}; % Minor
-% minerals={'Monazite','Allanite','Xenotime','Zircon','Apatite','Sphene'}; % Accessory
+minerals={'Monazite','Allanite','Xenotime','Zircon','Apatite','Sphene'}; % Accessory
 % minerals={'Allanite','Zircon','Apatite','Sphene','Orthoclase','Anorthite','Clinopyroxene','Amphibole'}; % Bergell
-minerals={'Anorthite','Albite','Orthoclase','Biotite','Amphibole','Garnet','Pyroxene','Olivine'}; % Major
+% minerals={'Anorthite','Albite','Orthoclase','Biotite','Amphibole','Garnet','Pyroxene','Olivine'}; % Major
+% minerals={'Garnet'};
 
 p.minerals = unique([p.minerals; 'Pyroxene']);
 p.Pyroxene.elements = p.Orthopyroxene.elements;
@@ -17,8 +18,6 @@ for i=1:length(p.Pyroxene.elements)
     e = p.Pyroxene.elements{i};
     p.Pyroxene.(e) = nanmean([p.Orthopyroxene.(e),p.Clinopyroxene.(e)],2);
 end
-% minerals={'Garnet'};
-
 
 minerals=minerals(logical(cellfun(@(x) sum(ismember(p.minerals, x)), minerals)));
 
@@ -27,8 +26,9 @@ minerals=minerals(logical(cellfun(@(x) sum(ismember(p.minerals, x)), minerals)))
 % elem={'Rb','Ba','Th','U','K','Nb','Ta','La','Ce','Pb','Nd','Sr','Sm','Zr','Eu','Gd','Ti','Dy','Y','Er','Yb','Lu'}; % Elliott Elements
 % elem={'K','Rb','Ba','U','P','Nb','Th','Sr','Zr','Ta','La','Na','Hf','Ce','Ti','Pr','Nd','Eu','Sm','Ga','Gd','Dy','Tb','Ho','Er','Yb','Tm','Lu','V','Y','Zn','Sc','Mn','Co','Ni'};
 % elem={'Cs','Rb','K','Na','Li',' ','Ba','Sr','Zn','Mn','Co','Ni',' ','Th','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Y','Dy','Ho','Er','Tm','Yb','Lu','V','Sc','Cr',' ', 'U','Hf','Zr','Ti',' ','Ta','Nb'};%,'P'
+elem = {'Sc';'Ti';'Mn';'Fe';'Sr';'Y';'Zr';'Nb';'Ba';'La';'Ce';'Pr';'Nd';'Sm';'Eu';'Gd';'Tb';'Dy';'Ho';'Er';'Tm';'Yb';'Lu';'Hf';'Ta';'Pb';'Th';'U'}; %TEA suite
 
-elem={'Rb','Ba','Sr','La','Sm','Yb'};
+% elem={'Rb','Ba','Sr','La','Sm','Yb'};
 
 figure;
 c=lines(length(minerals));

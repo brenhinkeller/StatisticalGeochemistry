@@ -39,7 +39,7 @@ if max(lon)>180 || min(lon)<-180
     fprintf('Warning: longitude may be out of bounds\n')
 end
 lat=mod(lat+90,180)-90;
-lon=mod(lat+180,360)-180;
+lon=mod(lon+180,360)-180;
    
 
 % Find the number of samples there are

@@ -40,7 +40,7 @@ telems='';
 Pmax=90000;
 Pmin=2;
 Tmax=3000;
-Tmin=500;
+Tmin=450;
 % Set temperature and pressure increments (positive increments if you want
 % T or P to increase each step, negative if you want it to decrease, 0 for
 % constant T or P)
@@ -66,10 +66,16 @@ end
 if ~exist('Tf','var'); Tf=Ti; end
 if ~exist('Pf','var'); Pf=Pi; end
 
+% Guess if intention is for calculation to end at Tf or Pf as a min or max
 if Tf<Ti; Tmin=Tf; end;
 if Tf>Ti; Tmax=Tf; end;
 if Pf<Pi; Pmin=Pf; end;
 if Pf>Pi; Pmax=Pf; end;
+
+% Read user settings again to allow user to override P & T min, max
+for i=1:length(varargin)/2
+      eval(sprintf('%s=varargin{2*i};',varargin{2*i-1}))
+end
 
 sc=sc./sum(sc).*100; % Normalize starting composition
 
@@ -78,6 +84,7 @@ melts=struct;
 
 % output workdirectory name
 workdir=['out' num2str(simnumber)];
+[~,~]=unix(['rm -rf' workdir]); % Ensure directory is empty
 [~,~]=unix(['mkdir -p ' workdir]);
 
 % Make .melts file containing the starting composition you want to run
