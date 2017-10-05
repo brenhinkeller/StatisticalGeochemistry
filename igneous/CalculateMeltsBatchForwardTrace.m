@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%% pMelts equil. batch melting %%%%%%%%%%%%%%%%%%%%%%%
 H2O=0.15; % Initial Water
-Pi=27000; % Initial Pressure
+Pi=33000; % Initial Pressure
 % Starting composition
 sc=[44.8030; 0.1991; 4.4305; 0.9778; 0.3823; 7.1350; 0.1344; 37.6345; 0.2489; 0.0129; 3.5345; 0.3584; 0.0289; 0.0209; H2O;]; %mcdbse (McDonough Pyrolite)
 % Elements to include in simulation (must match starting composition)
@@ -8,8 +8,13 @@ elems={'SiO2';'TiO2';'Al2O3';'Fe2O3';'Cr2O3';'FeO';  'MnO';  'MgO';   'NiO';  'C
 % Batch string
 batch='1\nsc.melts\n10\n1\n3\n1\nliquid\n1\n1.0\n0\n10\n0\n4\n0\n';
 % Run simulation
-melts=rmelts(sc,elems,'fo2path','None','batchstring',batch,'mode','isobaric','dT',-10,'Ti',1700,'Tf',800,'Pi',Pi);
+melts=rmelts(sc,elems,'fo2path','FMQ','batchstring',batch,'mode','isobaric','dT',-10,'Ti',1700,'Tf',800,'Pi',Pi);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%
+
 
 % Plot MELTS results
 plotelements={'SiO2','Al2O3','CaO','MgO','FeO','Na2O'};
@@ -112,9 +117,9 @@ xlabel('Percent Mantle Melt'); ylabel('Temperature')
 ylim([1200 1620])
 
 %%
-traceelements={'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Sc','V','Cr','Co','Ni','Cu','Zn','Ga','Zr','Rb','Ba','Y','Pb','Nb','Sr','Ta','Mo','U','Cs','W','Th','Hf'};
+% traceelements={'La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Sc','V','Cr','Co','Ni','Cu','Zn','Ga','Zr','Rb','Ba','Y','Pb','Nb','Sr','Ta','Mo','U','Cs','W','Th','Hf'};
 % traceelements={'Rb','Ba','Th','U','K','Nb','Ta','La','Ce','Pb','Nd','Sr','Sm','Zr','Eu','Gd','Ti','Dy','Y','Er','Yb','Lu'}; % Elliott Elements
-% traceelements={'Cs','Rb','K','Ba','Sr','La','Sm','Tb','Y','Yb','Nb'}; % Tatsumi elements
+traceelements={'Cs','Rb','K','Ba','Sr','La','Sm','Tb','Y','Yb','Nb'}; % Tatsumi elements
 % traceelements={'Rb','K','Na','Li','Ba','Sr'}; %Mobile elements
 % traceelements={'Hf','Zr','Ti','Ta','Nb'}; % Nonmobile elements
 
@@ -149,6 +154,16 @@ for elem=traceelements;
     calculated.(elem{:})=initial.(elem{:}) ./ (D.(elem{:}) .* (1-F)+F);
 end
 
+% Plot results
+figure;
+for e = traceelements;
+    hold on; plot(melts.liquid_0.mass, calculated.(e{:}));
+end
+set(gca,'yscale','log')
+legend(traceelements)
+xlabel('Percent melt'); ylabel('PPM');
+
+%%
 % Find calculated melt fractions closest to inverted melt fractions
 if ~exist('mcmelt','var'); load mcmelt27kign; end;
 t=mcmelt.bincenters;

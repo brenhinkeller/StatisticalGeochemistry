@@ -6,14 +6,26 @@ function [data,varargout] = importdataset(filename, varargin)
 
 % Check input options
     earthchem = strcmpi('EarthChem',varargin);
+    deleteMismatched = strcmpi('deleteMismatched',varargin);
     
 % Import the full dataset as a cell array
-    rawdata=importc(filename,varargin{~earthchem});
+    rawdata=importc(filename,varargin{~earthchem&~deleteMismatched});
 
     % Remove any completely empty columns
     rawdata(:,all(cellfun(@isempty,rawdata),1))=[];
     % Remove any completely empty rows
     rawdata(all(cellfun(@isempty,rawdata),2),:)=[];
+    
+    extraColumns = cellfun(@isempty,rawdata(1,:));
+    
+    % Delete any rows that do not have the right number of entries (strict)
+    if any(deleteMismatched);
+        hasMismatched = any(~cellfun(@isempty,rawdata(:,extraColumns)),2) | any(cellfun(@isempty,rawdata(:,~extraColumns)),2);
+        rawdata(hasMismatched,:)=[];
+    end
+    
+    % Delete any data columns that don't have a variable name
+    rawdata(:,extraColumns) = [];
 
 % Check for variable names
     if ~any(isempty(rawdata(1,:))) && sum(cellfun(@isplausiblyalphabetic,rawdata(1,:))) > sum(cellfun(@isplausiblynumeric,rawdata(1,:)))

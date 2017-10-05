@@ -1,6 +1,8 @@
 function index=matches(source, target)
 % index=findmatches(source, target)
-% Find the indices of each value in Target that matches any value in Source
+% Return the indices of each value in Target that matches any value in Source
+
+s0 = size(target);
 
 % Linearize array
 source=source(:);
@@ -22,3 +24,5 @@ elseif iscell(source) && iscell(target)
 else
     error('matches() requires cell or numeric input')
 end
+
+index = reshape(index,s0);

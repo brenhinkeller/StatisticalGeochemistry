@@ -4,7 +4,8 @@
 H2O=0.15; % Initial Water
 Pi=27000; % Initial Pressure
 % Starting composition
-sc=[44.8030; 0.1991; 4.4305; 0.9778; 0.3823; 7.1350; 0.1344; 37.6345; 0.2489; 0.0129; 3.5345; 0.3584; 0.0289; 0.0209; H2O;]; %mcdbse (McDonough Pyrolite)
+sc = [44.8030; 0.1991; 4.4305; 0.9778; 0.3823; 7.1350; 0.1344; 37.6345; 0.2489; 0.0129; 3.5345; 0.3584; 0.0289; 0.0209; H2O;]; %mcdbse (McDonough Pyrolite)
+% sc = [saltersdm.SiO2; saltersdm.TiO2; saltersdm.Al2O3; saltersdm.Fe2O3; saltersdm.Cr2O3; saltersdm.FeO; saltersdm.MnO; saltersdm.MgO; saltersdm.NiO; saltersdm.CoO; saltersdm.CaO; saltersdm.Na2O; saltersdm.K2O; saltersdm.P2O5; H2O;]; % Depleted Mantle
 % Elements to include in simulation (must match starting composition)
 elems={'SiO2';'TiO2';'Al2O3';'Fe2O3';'Cr2O3';'FeO';  'MnO';  'MgO';   'NiO';  'CoO';  'CaO';  'Na2O'; 'K2O'; 'P2O5'; 'H2O';};
 % Batch string
@@ -12,11 +13,10 @@ batch='1\nsc.melts\n10\n1\n3\n1\nliquid\n1\n1.0\n0\n10\n0\n4\n0\n';
 % Run simulation
 melts=rmelts(sc,elems,'fo2path','FMQ','batchstring',batch,'mode','isobaric','dT',-10,'Ti',1700,'Tf',800,'Pi',Pi);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-P = Pi/10000; %Pressure in GPa instead of bar
 % % Old method (deprecated)
 % load melts20kbar
 % meltdata=[melts20kbar.TiO2'; melts20kbar.Al2O3'; melts20kbar.Fe2O3t'; melts20kbar.MgO'; melts20kbar.CaO'; melts20kbar.Na2O'; melts20kbar.K2O']; 
-% Liquid_mass=melts20kbar.Liquid_mass;
+% % Liquid_mass=melts20kbar.Liquid_mass;
 % T=melts20kbar.T;
 
 %% Load required variables
@@ -33,16 +33,17 @@ simitemsin={'Age_Uncert';'Age';'SiO2';'TiO2';'Al2O3';'FeOT';'MgO';'CaO';'MnO';'N
 % Elements in meltdata matrix must be in same order as simitemsin
 meltdata=[melts.liquid_0.SiO2'; melts.liquid_0.TiO2'; melts.liquid_0.Al2O3'; melts.liquid_0.Fe2O3'./1.1113+melts.liquid_0.FeO'; melts.liquid_0.MgO'; melts.liquid_0.CaO'; melts.liquid_0.MnO'; melts.liquid_0.Na2O'; melts.liquid_0.K2O';]; 
 % meltdata = meltdata./repmat((1.015-melts.liquid_0.H2O'/100),size(meltdata,1),1); %Nominally anhydrous normalization (doesn't noticeably change results) 
+P = nanmean(melts.liquid_0.Pressure)/10000; %Pressure in GPa instead of bar
 T=melts.liquid_0.Temperature;
+Liquid_mass=melts.liquid_0.mass;
 
 % Construct a matrix holding all the data to be used in the simulation
 uncert=zeros(size(simitemsin))';
 datain=zeros(length(ign.Age),length(simitemsin));
 for i=1:length(simitemsin)
-    eval(sprintf('datain(:,%i)=ign.%s;', i, simitemsin{i}))
-    eval(sprintf('uncert(%i)=ign.err.%s;',i,simitemsin{i}))
+    datain(:,i)=ign.(simitemsin{i});
+    uncert(i)=ign.err.(simitemsin{i});
 end
-clear i
 
 %% Produce sample weights
 
@@ -53,7 +54,7 @@ agemin=0;
 agemax=4000;
 
 % Reject data that is out of the range of interest, has NANs, or isn't from a contienent
-test=(ign.SiO2>simin &ign.SiO2<simax &ign.Age>agemin &ign.Age<agemax &sum(isnan(datain(:,3:end)),2)<2 &ign.Elevation>-100 &~ign.oibs);
+test = ign.SiO2>simin &ign.SiO2<simax &ign.Age>agemin &ign.Age<agemax &sum(isnan(datain(:,3:end)),2)<2 &ign.Elevation>-100;
 data=datain(test,:);
 
 % Compute weighting coefficients
@@ -119,7 +120,8 @@ printnames={'percentmelt';'melttemp';'potentialtemp'};
 i=length(simitemsout);
 while i>0
     figure
-    errorbar(bincenters,nanmean(simaverages(:,:,i)),2.*nanmean(simerrors(:,:,i)),'.r')
+%     errorbar(bincenters,nanmean(simaverages(:,:,i)),2.*nanmean(simerrors(:,:,i)),'.r')
+    plot(bincenters,nanmean(simaverages(:,:,i)),'k')
     xlabel('Age (Ma)')
     ylabel(simitemsout{i})
     title(simtitle)
@@ -129,7 +131,7 @@ end
 
 %% Save results
 mcmelt.bincenters=bincenters; mcmelt.simaverages=simaverages; mcmelt.simerrors=simerrors; mcmelt.simitems=simitemsout;
-save(['mcmelt' num2str(Pi/1000) 'kign'],'mcmelt');
+save(['mcmeltContinuous200ppm' num2str(round(P)) 'kign'],'mcmelt');
 
 
 %% Plot the results from saved
@@ -138,8 +140,105 @@ save(['mcmelt' num2str(Pi/1000) 'kign'],'mcmelt');
 % i=length(simitemsout);
 % while i>0
 %     figure
-%     errorbar(mcmelt27k.bincenters,nanmean(mcmelt27k.simaverages(:,:,i)),2.*nanmean(mcmelt27k.simerrors(:,:,i)),'.r')
+%     errorbar(mcmelt.bincenters,nanmean(mcmelt.simaverages(:,:,i)),2.*nanmean(mcmelt.simerrors(:,:,i)),'.r')
 %     xlabel('Age (Ma)')
 %     ylabel(simitemsout{i})
 %     i=i-1;
 % end
+
+%% Averages for various modern basalt types:
+elems={'SiO2';'TiO2';'Al2O3';'FeOT';'MgO';'CaO';'MnO';'Na2O';'K2O';};
+meltdata=[melts.liquid_0.SiO2'; melts.liquid_0.TiO2'; melts.liquid_0.Al2O3'; melts.liquid_0.Fe2O3'./1.1113+melts.liquid_0.FeO'; melts.liquid_0.MgO'; melts.liquid_0.CaO'; melts.liquid_0.MnO'; melts.liquid_0.Na2O'; melts.liquid_0.K2O';]; 
+T=melts.liquid_0.Temperature;
+Liquid_mass=melts.liquid_0.mass;
+P = nanmean(melts.liquid_0.Pressure)/10000; %Pressure in GPa instead of bar
+if ~exist('ign','var'); load ign; end
+if ~exist('mcign','var'); load mcign; end
+if ~isfield(mcign,'Geolprov'); mcign.Geolprov = findgeolprov(mcign.Latitude,mcign.Longitude); end
+
+test = mcign.SiO2>43 & mcign.SiO2<51;
+% test = test & mcign.Geolprov == 11; fprintf('Island arc:\n'); %% Island arc
+% test = test & mcign.Geolprov == 12; fprintf('Continental arc:\n'); %% Continental arc
+test = test & mcign.Geolprov == 21; fprintf('Continental rift:\n');%% Rift
+% test = test & mcign.Geolprov == 22; fprintf('Continental flood basalt:\n');%% Flood basalt
+composition=zeros(length(elems), sum(test));
+for i=1:length(elems)
+    composition(i,:)=mcign.(elems{i})(test);
+end
+composition = composition(:,sum(isnan(composition),1)<2);
+
+% Find best-fitting melt percentages
+index=zeros(size(composition,2),1);
+for i=1:size(composition,2)
+    a=repmat(composition(:,i),1,size(meltdata,2));
+    [~, index(i)]=min(nansum(((a-meltdata)./a).^2,1));
+end
+
+PercentMelt=Liquid_mass(index); %Meltestimate
+MeltingTemp=T(index); %Tempestimate
+PotentialTemp=potentialtemperature(T(index)+273.15,P)-273.15; %Mantle potential tempestimate
+
+fprintf('Percent Melt: %g +/- %g +/- %g\n', nanmean(PercentMelt), nansem(PercentMelt)*sqrt(length(mcign.SiO2)/length(ign.SiO2)), nanmad(PercentMelt));
+fprintf('Potential Temperature: %g +/- %g +/- %g\n', nanmean(PotentialTemp), nansem(PotentialTemp)*sqrt(length(mcign.SiO2)/length(ign.SiO2)), nanmad(PotentialTemp));
+
+%% OIB
+elems={'SiO2';'TiO2';'Al2O3';'FeOT';'MgO';'CaO';'MnO';'Na2O';'K2O';};
+meltdata=[melts.liquid_0.SiO2'; melts.liquid_0.TiO2'; melts.liquid_0.Al2O3'; melts.liquid_0.Fe2O3'./1.1113+melts.liquid_0.FeO'; melts.liquid_0.MgO'; melts.liquid_0.CaO'; melts.liquid_0.MnO'; melts.liquid_0.Na2O'; melts.liquid_0.K2O';]; 
+T=melts.liquid_0.Temperature;
+Liquid_mass=melts.liquid_0.mass;
+P = nanmean(melts.liquid_0.Pressure)/10000; %Pressure in GPa instead of bar
+
+test = ign.SiO2>43 & ign.SiO2<51;
+test = test & ign.oibs;
+composition=zeros(length(elems), sum(test));
+for i=1:length(elems)
+    composition(i,:)=ign.(elems{i})(test);
+end
+composition = composition(:,sum(isnan(composition),1)<2);
+
+% Find best-fitting melt percentages
+index=zeros(size(composition,2),1);
+for i=1:size(composition,2)
+    a=repmat(composition(:,i),1,size(meltdata,2));
+    [~, index(i)]=min(nansum(((a-meltdata)./a).^2,1));
+end
+
+PercentMelt=Liquid_mass(index); %Meltestimate
+MeltingTemp=T(index); %Tempestimate
+PotentialTemp=potentialtemperature(T(index)+273.15,P)-273.15; %Mantle potential tempestimate
+
+fprintf('OIB:\n');
+fprintf('Percent Melt: %g +/- %g +/- %g\n', nanmean(PercentMelt), nansem(PercentMelt), nanmad(PercentMelt));
+fprintf('Potential Temperature: %g +/- %g +/- %g\n', nanmean(PotentialTemp), nansem(PotentialTemp), nanmad(PotentialTemp));
+
+%% MORB
+if ~exist('morb','var'); load morb; end
+if ~exist('mcmorb','var'); load mcmorb; end
+
+elems={'SiO2';'TiO2';'Al2O3';'FeOT';'MgO';'CaO';'MnO';'Na2O';'K2O';};
+meltdata=[melts.liquid_0.SiO2'; melts.liquid_0.TiO2'; melts.liquid_0.Al2O3'; melts.liquid_0.Fe2O3'./1.1113+melts.liquid_0.FeO'; melts.liquid_0.MgO'; melts.liquid_0.CaO'; melts.liquid_0.MnO'; melts.liquid_0.Na2O'; melts.liquid_0.K2O';]; 
+T=melts.liquid_0.Temperature;
+Liquid_mass=melts.liquid_0.mass;
+P = nanmean(melts.liquid_0.Pressure)/10000; %Pressure in GPa instead of bar
+
+test = mcmorb.SiO2>43 & mcmorb.SiO2<51;
+composition=zeros(length(elems), sum(test));
+for i=1:length(elems)
+    composition(i,:)=mcmorb.(elems{i})(test);
+end
+composition = composition(:,sum(isnan(composition),1)<2);
+
+% Find best-fitting melt percentages
+index=zeros(size(composition,2),1);
+for i=1:size(composition,2)
+    a=repmat(composition(:,i),1,size(meltdata,2));
+    [~, index(i)]=min(nansum(((a-meltdata)./a).^2,1));
+end
+
+PercentMelt=Liquid_mass(index); %Meltestimate
+MeltingTemp=T(index); %Tempestimate
+PotentialTemp=potentialtemperature(T(index)+273.15,P)-273.15; %Mantle potential tempestimate
+
+fprintf('MORB:\n');
+fprintf('Percent Melt: %g +/- %g +/- %g\n', nanmean(PercentMelt), nansem(PercentMelt)*sqrt(length(mcmorb.SiO2)/length(morb.SiO2)), nanmad(PercentMelt));
+fprintf('Potential Temperature: %g +/- %g +/- %g\n', nanmean(PotentialTemp), nansem(PotentialTemp)*sqrt(length(mcmorb.SiO2)/length(morb.SiO2)), nanmad(PotentialTemp));

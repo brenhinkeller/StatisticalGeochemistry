@@ -15,7 +15,7 @@ hold on
 for i = 1:length(timeRange)-1;
     test=mcign.FeOT>0&mcign.Age>timeRange(i)&mcign.Age<timeRange(i+1);
     [c,m,e]=bin(mcign.MgO(test),mcign.FeOT(test),0,12,length(mcign.SiO2)./length(ign.SiO2),10);
-    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5])    
+    errorbar(c,m,2*e,'.-','color',[i/5 0 1-i/5]) 
 end
 
 xlabel('MgO'); ylabel('FeOT')

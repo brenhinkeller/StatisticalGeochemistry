@@ -1,6 +1,6 @@
 function index=findmatches(source, target)
 % index=findmatches(source, target)
-% find the index of a value in Target (if any) that matches a value in Source
+% Find the index of a value in Target (if any) that matches a value in Source
 % for each value in Source
 
 % Linearize arrays

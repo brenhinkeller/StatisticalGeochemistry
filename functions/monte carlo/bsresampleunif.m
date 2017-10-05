@@ -1,4 +1,4 @@
-function dataout=bsresample(data, err2srel, nrows)
+function dataout=bsresampleunif(data, err, nrows)
 % dataout=bsresample(data, err2srel, nrows)
 % Non-weighted bootstrap resample a variable up to size nrows
 
@@ -13,18 +13,18 @@ while i<=nrows
         sdata=data(p50,:);
         
         % Corresponing uncertainty (either blanket or for each datum)
-        if size(err2srel,1)>1
-            serr=err2srel(p50,:);
+        if size(err,1)>1
+            serr=err(p50,:);
         else
-            serr=ones(size(sdata)).*err2srel;
+            serr=ones(size(sdata)).*err;
         end
     else
         sdata=data;
-        serr=err2srel;
+        serr=err;
     end
     
     % Randomize data over uncertainty interval
-    rn=randn(size(sdata));
+    rn=rand(size(sdata))-0.5;
     sdata=sdata+rn.*serr./2.*sdata;
     
     if i+size(sdata,1)-1<=nrows
