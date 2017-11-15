@@ -21,4 +21,5 @@ end
 legend(plotelements)
 title([num2str(H2O) ' Percent  H2O,  ' num2str(Pi) '  bar'])
 xlabel('Percent melt')
-ylabel('wt. %')
+ylabel('Abudance (wt. %)')
+xlim([0 100])

@@ -1,7 +1,8 @@
-Sources of Chondrite Values:
+Source of reference values:
 Anders and Grevesse, 1989 (andg)
 McDonough and Sun, 1995 (mcds)
 McDonough, 2000 (mcd)
 Sun and McDonough, 1989 (smcd)
 Palme, 1988 (palme)
 Wasson and Kallemeyn, 1988 (wsnk)
+Warren, 1975 (KREEP)
