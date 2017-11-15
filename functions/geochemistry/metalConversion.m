@@ -1,4 +1,8 @@
 function struct=metalConversion(struct)
+% function struct=metalConversion(struct)
+% Convert oxides (TiO2, Al2O3, etc) into corresponding elements (Ti, Al)...
+
+% Array of elements to convert
 dest={'Si','Ti','Al','Fe','Fe','Mg','Ca','Mn','Na','K','P','Cr','Ni','Co','C','S','H'};
 source={'SiO2','TiO2','Al2O3','FeOT','Fe2O3T','MgO','CaO','MnO','Na2O','K2O','P2O5','Cr2O3','NiO','CoO','CO2','SO2','H2O'};
 % for i=1:length(source)
@@ -13,6 +17,6 @@ for i=1:length(source)
             struct.(dest{i})=NaN(size(struct.(source{i})));
         end
         test=isnan(struct.(dest{i})) & ~isnan(struct.(source{i}));
-        struct.(dest{i})(test)=struct.(source{i})(test)./conversionfactor(i).*10000; %Convert from PPM to percent
+        struct.(dest{i})(test)=struct.(source{i})(test)./conversionfactor(i).*10000; %Convert from percent to PPM
     end
 end

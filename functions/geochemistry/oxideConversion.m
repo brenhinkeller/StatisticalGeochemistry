@@ -1,4 +1,8 @@
 function struct=oxideConversion(struct)
+% function struct=metalConversion(struct)
+% Convert major elements (Ti, Al, etc.) into corresponding oxides (TiO2, Al2O3)...
+
+% Array of elements to convert
 source={'Si','Ti','Al','Fe','Fe','Mg','Ca','Mn','Na','K','P','Cr','Ni','Co','C','S','H'};
 dest={'SiO2','TiO2','Al2O3','FeOT','Fe2O3T','MgO','CaO','MnO','Na2O','K2O','P2O5','Cr2O3','NiO','CoO','CO2','SO2','H2O'};
 % for i=1:length(source)

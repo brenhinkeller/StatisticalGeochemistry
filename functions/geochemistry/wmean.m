@@ -24,7 +24,7 @@ function [wx,wsigma,mswd]=wmean(x,sigma,varargin)
 %             else
 %                 wsigma=sum(w.*sigma)./sum(w);
 %             end
-            wsigma=max(sum(w.*sigma)./sum(w), nanstd(x,w));
+            wsigma=sqrt((sum(w.*sigma)./sum(w)).^2 + nanstd(x,w).^2);
             
         % Weight by variance
         else

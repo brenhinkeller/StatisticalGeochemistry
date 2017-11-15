@@ -69,6 +69,12 @@ function [data,varargout] = importdataset(filename, varargin)
         % Treat all column names containing '_Unit' or '_Method' as text
         NumericColumns(~cellfun(@isempty, strfind(elements,'_Unit')))=false;
         NumericColumns(~cellfun(@isempty, strfind(elements,'_Meth')))=false;
+        % Treat these variables as numeric
+        NumericColumns(strcmp(elements,'Delta_C13'))=true;
+        NumericColumns(strcmp(elements,'Epsilon_Nd'))=true;
+        NumericColumns(strcmp(elements,'S'))=true;
+        NumericColumns(strcmp(elements,'Delta_O18'))=true;
+        NumericColumns(strcmp(elements,'Lu176_Hf177'))=true;
     end  
 
     
