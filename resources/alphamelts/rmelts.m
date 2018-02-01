@@ -123,7 +123,7 @@ fclose(fid);
 
 % Make a batch file to run the above .melts file starting from the liquidus
 fid=fopen([workdir '/batch.txt'],'w');
-eval(['fprintf(fid,''' batchstring ''');'])
+fprintf(fid, batchstring);
 fclose(fid);
 
 % Run the command

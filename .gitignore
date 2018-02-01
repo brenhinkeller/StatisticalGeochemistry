@@ -7,5 +7,5 @@ resources/etopo/etopo1_bed_c.flt.gz
 resources/tapestry/Tapestry_large.pdf
 resources/seafloorage/seafloorageerror.mat
 resources/seafloorage/seafloorage.mat
-
+*.m~
 
