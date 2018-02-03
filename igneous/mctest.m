@@ -1,7 +1,7 @@
 % mctest.m
 % Produce the the (~10^6 row) monte carlo table mcign for quick examination
 % with plotmcvariable(s).m
-% Uses static per-variable errors
+% Uses static per-variable errors, except for age
 %%
 
 simitems={'Kv';'Latitude';'Longitude';'Elevation';'SiO2';'TiO2';'Al2O3';'Fe2O3';'Fe2O3T';'FeO';'FeOT';'MgO';'CaO';'Na2O';'K2O';'P2O5';'MnO';'H2O_Total';'La';'Ce';'Pr';'Nd';'Sm';'Eu';'Gd';'Tb';'Dy';'Ho';'Er';'Tm';'Yb';'Lu';'Li';'Be';'B';'C';'CO2';'F';'Cl';'Sc';'Ti';'V';'Cr';'Co';'Ni';'Cu';'Zn';'Ga';'Zr';'Os';'Rb';'Bi';'Hg';'Ba';'Y';'Pb';'Te';'Nb';'Sr87_Sr86';'Tl';'Pt';'Sn';'Cd';'As';'Pd';'Sr';'Se';'S';'Au';'Ta';'Mo';'U';'Cs';'Sb';'Ag';'W';'Th';'Re';'Hf';'Ir';'tc1Lith';'tc1Crust';'Crust';'Vp';'Vs';'Rho';}; % ign
@@ -9,8 +9,8 @@ simitems={'Kv';'Latitude';'Longitude';'Elevation';'SiO2';'TiO2';'Al2O3';'Fe2O3';
 datain=zeros(length(ign.Age),length(simitems)+2);
 uncertainty=zeros(1,length(simitems)+2);
 for i=1:length(simitems)
-    eval(sprintf('datain(:,%i)=ign.%s;', i+2, simitems{i}))
-    eval(sprintf('uncertainty(%i)=ign.err.%s;',i+2,simitems{i}))
+    datain(:,i+2)=ign.(simitems{i});
+    uncertainty(i+2)=ign.err.(simitems{i});
 end
 clear i
 
@@ -22,17 +22,13 @@ agecert(agecert<50)=50;
 agecert(isnan(agecert))=50;
 datain(:,2)=agecert;
 
-test=~isnan(ign.Age)&~isnan(ign.Latitude)&~isnan(ign.Longitude)&ign.Elevation>-100;%&~ign.oibs;
+% Exclude samples without age and location, located in the oceans below sea level, or oibs
+test=~isnan(ign.Age)&~isnan(ign.Latitude)&~isnan(ign.Longitude)&ign.Elevation>-100&~ign.oibs;
 data=datain(test,:);
 
 tic;
-% if isfield(ign,'k')
-%     k=ign.k;
-% else
-    k=invweight(ign.Latitude(test),ign.Longitude(test),ign.Age(test));
-    ign.k=k;
-% end
-
+% Calculate sample weights
+k=invweight(ign.Latitude(test),ign.Longitude(test),ign.Age(test));
 prob=1./((k.*median(5./k))+1);
 fprintf('Calculating sample weights: ')
 toc
@@ -41,14 +37,17 @@ toc
 %% Run the monte carlo
 
 % Number of rows to simulate
-samplerows=10000000;
+samplerows=1E7;
 
 tic;
+% Generate matrix to hold resampled data, initialized as NaNs
+fprintf('Allocating output matrix: ')
 mcign.data=NaN(samplerows,size(data,2));
 toc
 
-
 tic;
+% Fill the output data matrix with resampled data
+fprintf('Resampling: ')
 i=1;
 while i<samplerows
     % select weighted sample of data
@@ -76,5 +75,5 @@ toc
 mcign=elementify(mcign);
 
 % save ign ign
-% save mcign mcign
+save mcign mcign
 
