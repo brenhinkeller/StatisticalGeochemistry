@@ -4,18 +4,20 @@
 % Uses static per-variable errors, except for age
 %%
 
+% Variables to include in resampled dataset 
 simitems={'Kv';'Latitude';'Longitude';'Elevation';'SiO2';'TiO2';'Al2O3';'Fe2O3';'Fe2O3T';'FeO';'FeOT';'MgO';'CaO';'Na2O';'K2O';'P2O5';'MnO';'H2O_Total';'La';'Ce';'Pr';'Nd';'Sm';'Eu';'Gd';'Tb';'Dy';'Ho';'Er';'Tm';'Yb';'Lu';'Li';'Be';'B';'C';'CO2';'F';'Cl';'Sc';'Ti';'V';'Cr';'Co';'Ni';'Cu';'Zn';'Ga';'Zr';'Os';'Rb';'Bi';'Hg';'Ba';'Y';'Pb';'Te';'Nb';'Sr87_Sr86';'Tl';'Pt';'Sn';'Cd';'As';'Pd';'Sr';'Se';'S';'Au';'Ta';'Mo';'U';'Cs';'Sb';'Ag';'W';'Th';'Re';'Hf';'Ir';'tc1Lith';'tc1Crust';'Crust';'Vp';'Vs';'Rho';}; % ign
 
+% Create data and uncertainty matrices from ign struct
 datain=zeros(length(ign.Age),length(simitems)+2);
 uncertainty=zeros(1,length(simitems)+2);
 for i=1:length(simitems)
     datain(:,i+2)=ign.(simitems{i});
     uncertainty(i+2)=ign.err.(simitems{i});
 end
-clear i
 
 %% Produce sample weights
 
+% Set default minimum age uncertainty (i.e., minimum kernel bandwidth) to 50 Ma
 datain(:,1)=ign.Age;
 agecert=ign.Age_Max-ign.Age_Min;
 agecert(agecert<50)=50;
@@ -37,7 +39,7 @@ toc
 %% Run the monte carlo
 
 % Number of rows to simulate
-samplerows=1E7;
+samplerows=1E6;
 
 tic;
 % Generate matrix to hold resampled data, initialized as NaNs
