@@ -10,11 +10,9 @@ ign.Age_Uncert = abs(ign.Age_Max-ign.Age_Min);
 uncert=zeros(size(simitemsin))';
 datain=zeros(length(ign.Age),length(simitemsin));
 for i=1:length(simitemsin)
-    eval(sprintf('datain(:,%i)=ign.%s;', i, simitemsin{i}))
-    eval(sprintf('uncert(%i)=ign.err.%s;',i,simitemsin{i}))
+    datain(:,i)=ign.(simitemsin{i});
+    uncert(i)=ign.err.(simitemsin{i});
 end
-clear i
-
 
 % % Create n matlab workers for parallel processing on n cores
 % n=2;
@@ -113,8 +111,7 @@ end
 
 % matlabpool close
 
-%%
-% Save results
+%% Save results
 eval([savetitle '.bincenters=bincenters;']); eval([savetitle '.simaverages=simaverages;']); eval([savetitle '.simerrors=simerrors;']); eval([savetitle '.simitems=printnames;']);
 for i=1:length(printnames)
     eval([savetitle '.' printnames{i} '=simaverages(:,:,' num2str(i) ');'])

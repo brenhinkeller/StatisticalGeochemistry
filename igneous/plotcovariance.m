@@ -1,26 +1,20 @@
 %% Load data
-% Name of struct
-name='mcigne';
-if ~exist(name,'var')
-    load(name)
-end
-eval(['in = ' name ';']);
-load YlCn
+if ~exist('mcigne','var'); load mcigne; end % N.B. this variable must be generated using mctest.m: it is too big to store on GitHub 
+load YlCn % Colormap
 
-% Names of fields of struct that you want to make a covariance matrix for:
+% Names of variables that we want to produce a covariance matrix for
 
-% Standard:
-% plotitems={'SiO2','K2O','Rb','Th','U','Pb','Cs','Li','Na2O','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','Ga','Zn','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cu','Cr2O3'};
+% Standard: plotitems={'SiO2','K2O','Rb','Th','U','Pb','Cs','Li','Na2O','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','Ga','Zn','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cu','Cr2O3'};
 
-% Extended:
-% plotitems={'SiO2','K2O','Rb','Th','U','Pb','Tl','Cs','Li','Na2O','Al2O3','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','F','Ga','Sn','As','Sb','S','Se','Te','Ag','Cd','Zn','P2O5','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cu','Cr2O3'};
+% Extended: plotitems={'SiO2','K2O','Rb','Th','U','Pb','Tl','Cs','Li','Na2O','Al2O3','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','F','Ga','Sn','As','Sb','S','Se','Te','Ag','Cd','Zn','P2O5','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cu','Cr2O3'};
 
-% Symmetric
+% Symmetric: 
 plotitems={'SiO2','K2O','Rb','Th','U','Pb','Tl','Cs','Li','Na2O','Al2O3','Ba','Sr','La','Ce','Pr','Nd','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Y','Hf','Zr','Ta','Nb','F','Ga','Sn','Cd','Zn','P2O5','TiO2','MnO','Sc','V','FeO','CaO','Co','MgO','Ni','Cr2O3'};
 
-data = NaN(length(in.SiO2),length(plotitems));
+% Fill a matrix with the variables of interest
+data = NaN(length(mcigne.SiO2),length(plotitems));
 for i=1:length(plotitems)
-    data(:,i) = in.(plotitems{i});
+    data(:,i) = mcigne.(plotitems{i});
 end
 
 
@@ -57,10 +51,10 @@ colormap(YlCn)
 %% Compare and plot covarinace of Archean vs Phanerozoic samples
 
 % Archean first
-atest = in.Age > 2500; % & (isnan(mcigne.Ta) | mcigne.Ta<9 | mcigne.Ta > 11); %% Ignore anomalous Papunen Ta data with Ta=10
-data = NaN(length(in.SiO2(atest)),length(plotitems));
+atest = mcigne.Age > 2500; % & (isnan(mcigne.Ta) | mcigne.Ta<9 | mcigne.Ta > 11); %% Ignore anomalous Papunen Ta data with Ta=10
+data = NaN(length(mcigne.SiO2(atest)),length(plotitems));
 for i=1:length(plotitems)
-    data(:,i) = in.(plotitems{i})(atest);
+    data(:,i) = mcigne.(plotitems{i})(atest);
 end
 acovmat=zeros(length(data(1,:)));
 for i=1:length(data(1,:))
@@ -78,10 +72,10 @@ for i=1:length(data(1,:))
 end
 
 % Then Phanerozoic
-ptest = in.Age < 541;
-data = NaN(length(in.SiO2(ptest)),length(plotitems));
+ptest = mcigne.Age < 541;
+data = NaN(length(mcigne.SiO2(ptest)),length(plotitems));
 for i=1:length(plotitems)
-    data(:,i) = in.(plotitems{i})(ptest);
+    data(:,i) = mcigne.(plotitems{i})(ptest);
 end
 pcovmat=zeros(length(data(1,:)));
 for i=1:length(data(1,:))
