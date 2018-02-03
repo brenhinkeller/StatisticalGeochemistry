@@ -60,7 +60,7 @@ end
 
 
 % Calculate weight Fe (without oxide) for Fe3/FeT ratio
-mcign.Fe3 = mcign.Fe2O3 .* 55.845 ./ (55.845 + 1.5*15.9994;
+mcign.Fe3 = mcign.Fe2O3 .* 55.845 ./ (55.845 + 1.5*15.9994);
 mcign.Fe2 = mcign.FeO .* 55.845 ./ (55.845 + 15.9994);
 mcign.FeT = mcign.Fe3 + mcign.Fe3;
 
