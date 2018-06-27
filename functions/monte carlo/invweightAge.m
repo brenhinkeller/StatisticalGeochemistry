@@ -15,7 +15,7 @@ while i<=length(age)
         k(i)=Inf;
     else
         % Otherwise, calculate weight
-         k(i)=nansum(1./((age(i)-age).^2+1));
+         k(i)=sum(1./((age(i)-age(~nodata)).^2+1));
 
     end
     % Display progress

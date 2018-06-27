@@ -1,4 +1,4 @@
-function index=contains(str, strcell)
+function index=my_contains(str, strcell)
 % index=contains(str, strcell)
 % Return the index for values of strcell that contain str
 

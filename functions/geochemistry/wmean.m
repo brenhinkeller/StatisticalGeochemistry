@@ -14,19 +14,14 @@ function [wx,wsigma,mswd]=wmean(x,sigma,varargin)
         wsigma = sigma;
         mswd = 0;
     else
-        % User-supplied weight
+        % User-supplied weight (non-standard)
         if nargin>2 && isnumeric(varargin{1})
             w = varargin{1}(~t);
             wx=sum(w.*x)./sum(w);
             mswd=1/(length(x)-1)*sum((x-wx).^2./sigma.^2);
-%             if (mswd>1);
-%                 wsigma=sum(w.*sigma)./sum(w).*sqrt(mswd);
-%             else
-%                 wsigma=sum(w.*sigma)./sum(w);
-%             end
             wsigma=sqrt((sum(w.*sigma)./sum(w)).^2 + nanstd(x,w).^2);
             
-        % Weight by variance
+        % Weight by variance (standard approach)
         else
             w=1./(sigma.*sigma);
             wx=sum(w.*x)./sum(w);

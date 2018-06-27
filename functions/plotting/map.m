@@ -1,5 +1,5 @@
 function map(lat,lon,varargin)
-% MAP(lat,lon,['etopo','tc1','hold on', style])
+% MAP(lat,lon,['large','etopo','tc1','hold on', style])
 % Plot an image of the earth with points at the coordinates specified by 
 % lat, lon. Style options (e.g., '.r') are passed directly to PLOT(). 
 
@@ -33,9 +33,11 @@ function map(lat,lon,varargin)
     % If 'hold on' flag is specified, plot on top of preexisting figure
     if any(hldon);
         if any(etp)
-            hold on; plot((lon+180)*60,(90-lat)*60,style{:});
+            hold on; plot((lon+180)*60,(90-lat)*60,style{:}); % Scale factor: 21600/360 = 60;
+        elseif any('medium')
+            hold on; plot((lon+180)*15,(90-lat)*15,style{:}) % Scale factor: 5400/360 = 15;
         else
-            hold on; plot((lon+180)*128/45,(90-lat)*128/45,style{:});
+            hold on; plot((lon+180)*128/45,(90-lat)*128/45,style{:}); % Scale factor: 1024/360 = 128/45 ~~2.84;
         end
 
     % Otherwise, pick a base image to show
