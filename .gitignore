@@ -1,4 +1,7 @@
 .DS_Store
+*.m~
+
+# Files that are too big
 resources/topex/grav.img.20.1.gz
 resources/topex/topo_15.1.img.gz
 resources/topex/topex.mat
@@ -7,5 +10,7 @@ resources/etopo/etopo1_bed_c.flt.gz
 resources/tapestry/Tapestry_large.pdf
 resources/seafloorage/seafloorageerror.mat
 resources/seafloorage/seafloorage.mat
-*.m~
+resources/seafloorage/seafloorrate.mat
 
+# Other files to exclude
+resources/chondrite/*.csv
