@@ -11,6 +11,7 @@ colors=[255 242 0   % Africa
         57  181 74  % North America
         3   63  0   % South America
         0   255 252 % Antarctica
+        255 126 0   % India
         
         255 255 255 % No data
         0   0   0   % No data
@@ -23,6 +24,7 @@ types=[1 % Africa
        5 % North America
        6 % South America
        7 % Antarctica
+       8 % India
        
        0 % No Data
        0 % No Data
